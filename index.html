@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+<title>Blog | AVBlocks</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Primo Software">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/">
+
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+
+<link rel="stylesheet" href="/assets/css/classes.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="AVBlocks">
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLR7GZ1GCK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GLR7GZ1GCK');
+</script>
+
+</head>
+
+
+
+
+<header>
+  <a href="https://avblocks.com" class="title">AVBlocks</a>
+  <nav><a aria-label="Home" href="https://avblocks.com/" ><span aria-hidden="true">Home</span></a><a aria-label="Blog" href="/" class="selected"><span aria-hidden="true">Blog</span></a><a aria-label="Archive" href="/archive/" ><span aria-hidden="true">Archive</span></a></nav>
+
+</header>
+
+
+  
+  <article>
+    <header>
+  <h1><a href="/avblocks-3-whats-new/">AVBlocks v3 - What’s New</a></h1><time datetime="2023-07-05T00:00:00-07:00">July 05, 2023</time>
+</header>
+
+    <h3 id="api">API</h3>
+
+<ul>
+  <li>Remove 32-bit application support (C++ and .NET)</li>
+  <li>C++: Refactor API headers to use lowercase file names and subdirectories for namespaces</li>
+  <li>.NET: New AVBlocks .NET SDK for macOS and Linux (based on .NET Core 6+)</li>
+  <li>Distribute the <a href="https://github.com/avblocks/avblocks-core">AVBlocks Core</a> and <a href="https://github.com/avblocks/avblocks-net-core">AVBlocks .NET Core</a> through GitHub</li>
+</ul>
+
+    <div class="more"><a href="/avblocks-3-whats-new/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/avblocks-2-whats-new/">AVBlocks v2 - What’s New</a></h1><time datetime="2016-04-16T00:00:00-07:00">April 16, 2016</time>
+</header>
+
+    <h3 id="api">API</h3>
+
+<ul>
+  <li>The MediaInfo object now implements the Block abstract interface.</li>
+</ul>
+
+<h3 id="samples">Samples</h3>
+
+<ul>
+  <li>New <code class="language-plaintext highlighter-rouge">overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
+</ul>
+
+    <div class="more"><a href="/avblocks-2-whats-new/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/controling-h-264-decoding-latency/">Controling H.264 decoding latency</a></h1><time datetime="2013-12-17T00:00:00-08:00">December 17, 2013</time>
+</header>
+
+    <p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code class="language-plaintext highlighter-rouge">max_dec_frame_buffering</code> from the AVC / H.264 standard).
+It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.<!--more--></p>
+
+
+    <div class="more"><a href="/controling-h-264-decoding-latency/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/">AVBlocks will not load if Wmvcore.dll is not present on user's system</a></h1><time datetime="2013-09-09T00:00:00-07:00">September 09, 2013</time>
+</header>
+
+    <blockquote>
+  <p>Update: This issue has been fixed as of version 1.6.</p>
+</blockquote>
+
+<p>Wmvcore.dll is standard on all editions of Windows Vista and Windows 7 with the exception of the “N” editions. The “N” editions are distributed in Europe and do not include Windows Media Player and its related technologies.</p>
+
+    <div class="more"><a href="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/how-to-set-license-string-in-avblocks/">How to set license string in AVBlocks</a></h1><time datetime="2013-05-29T00:00:00-07:00">May 29, 2013</time>
+</header>
+
+    <p>This post assumes that you are using AVBlocks for .NET and you have purchased a license from the <a href="https://lm.primosoftware.com" title="License Managerment">License Management</a> site.</p>
+
+<p>When you license a Primo Software product you usually get a license file in the email. The license file is basically a signed XML string that describes the products and features you have licensed. Then you have to provide the license to AVBlocks with the Library.SetLicense method.</p>
+
+    <div class="more"><a href="/how-to-set-license-string-in-avblocks/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/avblocks-in-demo-mode/">AVBlocks in demo mode</a></h1><time datetime="2012-10-20T00:00:00-07:00">October 20, 2012</time>
+</header>
+
+    <p>The following restrictions apply when AVBlocks works in demo mode:</p>
+
+<ul>
+  <li>For video streams, a semi-transparent logo is overlaid on top of each video frame.</li>
+  <li>For audio streams, a short audio sample is mixed in the original track at random places.</li>
+</ul>
+
+<p>The demo restrictions are removed when a valid XML license is passed to <code class="language-plaintext highlighter-rouge">Library::setLicense</code> API method.</p>
+
+    <div class="more"><a href="/avblocks-in-demo-mode/">read more</a></div>
+  </article>
+
+
+
+  <article>
+    
+    
+    <a href="/tag/tips-and-tricks"><code class="highligher-rouge" style="font-size:13px;"><nobr>tips-and-tricks</nobr></code></a>
+    <a href="/tag/news"><code class="highligher-rouge" style="font-size:12px;"><nobr>news</nobr></code></a>
+    <a href="/tag/windows"><code class="highligher-rouge" style="font-size:11px;"><nobr>windows</nobr></code></a>
+    <a href="/tag/sample-code"><code class="highligher-rouge" style="font-size:11px;"><nobr>sample-code</nobr></code></a>
+    <a href="/tag/license"><code class="highligher-rouge" style="font-size:11px;"><nobr>license</nobr></code></a>
+    <a href="/tag/demo"><code class="highligher-rouge" style="font-size:11px;"><nobr>demo</nobr></code></a>
+    <a href="/tag/WMV"><code class="highligher-rouge" style="font-size:11px;"><nobr>WMV</nobr></code></a>
+    
+  </article>
+  
+
+
+
+
+
+
+
+
+
+<footer>
+  <div>&copy; Primo Software</div>
+  <nav><a aria-label="Mail" href="mailto:sales@avblocks.com" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a aria-label="Github" href="https://github.com/avblocks" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a aria-label="Subscribe" href="/feed.xml" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+<title>Controling H.264 decoding latency | AVBlocks</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Primo Software">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/controling-h-264-decoding-latency/">
+
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+
+<link rel="stylesheet" href="/assets/css/classes.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="AVBlocks">
+
+
+
+<script src="//avblocks-blog.disqus.com/embed.js" async></script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLR7GZ1GCK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GLR7GZ1GCK');
+</script>
+
+</head>
+
+
+
+
+<header>
+  <a href="https://avblocks.com" class="title">AVBlocks</a>
+  <nav><a aria-label="Home" href="https://avblocks.com/" ><span aria-hidden="true">Home</span></a><a aria-label="Blog" href="/" ><span aria-hidden="true">Blog</span></a><a aria-label="Archive" href="/archive/" ><span aria-hidden="true">Archive</span></a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/controling-h-264-decoding-latency/">Controling H.264 decoding latency</a></h1><time datetime="2013-12-17T00:00:00-08:00">December 17, 2013</time>
+</header>
+
+  <p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code class="language-plaintext highlighter-rouge">max_dec_frame_buffering</code> from the AVC / H.264 standard).
+It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.<!--more--></p>
+
+<p>Here are some key notes about using this parameter:</p>
+
+<ul>
+  <li>It must be set to the output pin (see the sample code below)</li>
+  <li>The supported values are 0 and 1. A negative value is ignored.</li>
+  <li>MaxDecFrameBuffering(0) achieves decoding latency of 0 frames for progressive streams and 1 frame for interlaced streams.</li>
+  <li>MaxDecFrameBuffering(1) achieves decoding latency of 1 frame both for progressive and interlaced streams.</li>
+  <li>If the stream has B-frames (or more precisely the total number of reference frames is greater than 1) the decoding will still succeed, but decoding latency will be greater than the required one, as a safety guard.</li>
+  <li>With MaxDecFrameBuffering (0|1) only one decoding thread is used, so it hurts performance and it must be used only when low decoding latency is the primary goal.</li>
+</ul>
+
+<p>The following code can be used to set the <code class="language-plaintext highlighter-rouge">MaxDecFrameBuffering</code> parameter to an output pin:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setH264DecodingLatency</span><span class="p">(</span><span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">MediaPin</span><span class="o">*</span> <span class="n">pin</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">desiredLatency</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="p">;</span>
+    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">Param</span><span class="p">;</span>
+    
+    <span class="n">ParameterList</span><span class="o">*</span> <span class="n">params</span> <span class="p">(</span> <span class="n">Library</span><span class="o">::</span><span class="n">createParameterList</span><span class="p">()</span> <span class="p">);</span>
+        <span class="n">IntParameter</span><span class="o">*</span> <span class="n">maxDecFrameBuffering</span> <span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createIntParameter</span><span class="p">()</span> <span class="p">);</span>
+            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setName</span><span class="p">(</span><span class="n">Decoder</span><span class="o">::</span><span class="n">Video</span><span class="o">::</span><span class="n">H264</span><span class="o">::</span><span class="n">VUI</span><span class="o">::</span><span class="n">MaxDecFrameBuffering</span><span class="p">);</span>
+            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setValue</span><span class="p">(</span><span class="n">desiredLatency</span><span class="p">);</span>
+            <span class="n">params</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">maxDecFrameBuffering</span><span class="p">);</span>
+        <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+        <span class="n">pin</span><span class="o">-&gt;</span><span class="n">setParams</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+    <span class="n">params</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+  
+    <hr>
+    <div id="disqus_thread"></div>
+    
+    <noscript>Please enable JavaScript to view comments.</noscript>
+  
+</article>
+
+
+
+<footer>
+  <div>&copy; Primo Software</div>
+  <nav><a aria-label="Mail" href="mailto:sales@avblocks.com" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a aria-label="Github" href="https://github.com/avblocks" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a aria-label="Subscribe" href="/feed.xml" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

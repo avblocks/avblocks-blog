@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+<title>How to set license string in AVBlocks | AVBlocks</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Primo Software">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/how-to-set-license-string-in-avblocks/">
+
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+
+<link rel="stylesheet" href="/assets/css/classes.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="AVBlocks">
+
+
+
+<script src="//avblocks-blog.disqus.com/embed.js" async></script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLR7GZ1GCK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GLR7GZ1GCK');
+</script>
+
+</head>
+
+
+
+
+<header>
+  <a href="https://avblocks.com" class="title">AVBlocks</a>
+  <nav><a aria-label="Home" href="https://avblocks.com/" ><span aria-hidden="true">Home</span></a><a aria-label="Blog" href="/" ><span aria-hidden="true">Blog</span></a><a aria-label="Archive" href="/archive/" ><span aria-hidden="true">Archive</span></a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/how-to-set-license-string-in-avblocks/">How to set license string in AVBlocks</a></h1><time datetime="2013-05-29T00:00:00-07:00">May 29, 2013</time>
+</header>
+
+  <p>This post assumes that you are using AVBlocks for .NET and you have purchased a license from the <a href="https://lm.primosoftware.com" title="License Managerment">License Management</a> site.</p>
+
+<p>When you license a Primo Software product you usually get a license file in the email. The license file is basically a signed XML string that describes the products and features you have licensed. Then you have to provide the license to AVBlocks with the Library.SetLicense method.</p>
+
+<p>Here is a code snippet in C#:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">string</span> <span class="n">license</span> <span class="p">=</span> 
+    <span class="s">@"&lt;primoSoftware&gt;
+      &lt;license version='1.0'&gt;
+        &lt;token&gt;abcdefghijklmnop&lt;/token&gt;
+        &lt;revision&gt;1&lt;/revision&gt;
+        &lt;issueDate&gt;2013-05-23&lt;/issueDate&gt;
+        &lt;expireDate&gt;2014-05-24&lt;/expireDate&gt;
+        &lt;updateTime&gt;2013-05-23 21:02:44&lt;/updateTime&gt;
+        &lt;item id='avb-win'&gt;
+          &lt;product&gt;avb&lt;/product&gt;
+          &lt;feature id='h264-enc' /&gt;
+          &lt;feature id='pcm' /&gt;
+        &lt;/item&gt;    
+    	&lt;signature&gt;abcd-long-signature-string-here&lt;/signature&gt;
+      &lt;/license&gt;
+    &lt;/primoSoftware&gt;"</span><span class="p">;</span>
+    
+<span class="n">Library</span><span class="p">.</span><span class="nf">SetLicense</span><span class="p">(</span><span class="n">license</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The license above is for AVBlocks for Windows (<code class="language-plaintext highlighter-rouge">avb-win</code>) and includes the AVC / H.264 Encoder (<code class="language-plaintext highlighter-rouge">h264-enc</code>) and PCM Audio (<code class="language-plaintext highlighter-rouge">pcm</code>) features.</p>
+
+<p>Then the following calls should return true for the license above:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>NOTES:</p>
+
+<ol>
+  <li>
+    <p>Calling <code class="language-plaintext highlighter-rouge">Library.SetLicense</code> on any of the AVBlocks Demo libraries will fail. The Demo version cannot be licensed. If you downloaded AVBlocks from <a href="https://avblocks.com/download/" title="www.avblocks.com">www.avblocks.com</a> then you have the Demo product. You need to get your AVBlocks copy from the Downloads section of the <a href="https://lm.primosoftware.com">License Manager</a> site.</p>
+  </li>
+  <li>
+    <p>You should be careful when formatting the license XML as it may become invalid.</p>
+  </li>
+</ol>
+
+<p>Here are the rules:</p>
+
+<ul>
+  <li>It’s OK to reformat the blank space between the xml elements in the license (spaces, new lines) the way you wish.</li>
+  <li>It’s also OK to substitute the double quotes with single quotes (as shown in the example above), otherwise you need to escape the double quotes.</li>
+  <li>It’s NOT OK to reorder elements or change the letter case.</li>
+</ul>
+
+  
+    <hr>
+    <div id="disqus_thread"></div>
+    
+    <noscript>Please enable JavaScript to view comments.</noscript>
+  
+</article>
+
+
+
+<footer>
+  <div>&copy; Primo Software</div>
+  <nav><a aria-label="Mail" href="mailto:sales@avblocks.com" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a aria-label="Github" href="https://github.com/avblocks" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a aria-label="Subscribe" href="/feed.xml" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

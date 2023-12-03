@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+<title>AVBlocks will not load if Wmvcore.dll is not present on user&#39;s system | AVBlocks</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Primo Software">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/">
+
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+
+<link rel="stylesheet" href="/assets/css/classes.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="AVBlocks">
+
+
+
+<script src="//avblocks-blog.disqus.com/embed.js" async></script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLR7GZ1GCK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GLR7GZ1GCK');
+</script>
+
+</head>
+
+
+
+
+<header>
+  <a href="https://avblocks.com" class="title">AVBlocks</a>
+  <nav><a aria-label="Home" href="https://avblocks.com/" ><span aria-hidden="true">Home</span></a><a aria-label="Blog" href="/" ><span aria-hidden="true">Blog</span></a><a aria-label="Archive" href="/archive/" ><span aria-hidden="true">Archive</span></a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/">AVBlocks will not load if Wmvcore.dll is not present on user's system</a></h1><time datetime="2013-09-09T00:00:00-07:00">September 09, 2013</time>
+</header>
+
+  <blockquote>
+  <p>Update: This issue has been fixed as of version 1.6.</p>
+</blockquote>
+
+<p>Wmvcore.dll is standard on all editions of Windows Vista and Windows 7 with the exception of the “N” editions. The “N” editions are distributed in Europe and do not include Windows Media Player and its related technologies.</p>
+
+<p>The following versions of Windows Vista or Window 7 are affected:</p>
+
+<ul>
+  <li>Windows 7 Starter N</li>
+  <li>Windows 7 Home Premium N</li>
+  <li>Windows 7 Professional N</li>
+  <li>Windows 7 Ultimate N</li>
+  <li>Windows Vista Home Basic N</li>
+  <li>Windows Vista Business N</li>
+  <li>Windows Vista Home Basic KN</li>
+  <li>Windows Vista Business KN</li>
+</ul>
+
+<p>AVBlocks depends on the following Wmvcore.dll functions for ASF muxing and demuxing:</p>
+
+<ul>
+  <li>WMCreateProfileManager</li>
+  <li>WMCreateSyncReader</li>
+  <li>WMCreateWriter</li>
+</ul>
+
+<p>We are fixing this issue by changing the code to load Wmvcore.dll on-demand. This fix will be available in AVBlocks 1.6.</p>
+
+  
+    <hr>
+    <div id="disqus_thread"></div>
+    
+    <noscript>Please enable JavaScript to view comments.</noscript>
+  
+</article>
+
+
+
+<footer>
+  <div>&copy; Primo Software</div>
+  <nav><a aria-label="Mail" href="mailto:sales@avblocks.com" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a aria-label="Github" href="https://github.com/avblocks" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a aria-label="Subscribe" href="/feed.xml" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

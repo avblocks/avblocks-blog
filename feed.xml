@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-12-03T14:13:40-08:00</updated><id>/feed.xml</id><title type="html">AVBlocks</title><subtitle>&amp;copy; Primo Software</subtitle><author><name>Primo Software</name></author><entry><title type="html">AVBlocks v3 - What’s New</title><link href="/avblocks-3-whats-new/" rel="alternate" type="text/html" title="AVBlocks v3 - What’s New" /><published>2023-07-05T00:00:00-07:00</published><updated>2023-07-05T00:00:00-07:00</updated><id>/avblocks-3-whats-new</id><content type="html" xml:base="/avblocks-3-whats-new/"><![CDATA[<h3 id="api">API</h3>
+
+<ul>
+  <li>Remove 32-bit application support (C++ and .NET)</li>
+  <li>C++: Refactor API headers to use lowercase file names and subdirectories for namespaces</li>
+  <li>.NET: New AVBlocks .NET SDK for macOS and Linux (based on .NET Core 6+)</li>
+  <li>Distribute the <a href="https://github.com/avblocks/avblocks-core">AVBlocks Core</a> and <a href="https://github.com/avblocks/avblocks-net-core">AVBlocks .NET Core</a> through GitHub</li>
+</ul>
+
+<h3 id="samples">Samples</h3>
+
+<ul>
+  <li>Use cmake and Visual Studio Code for AVBlocks samples</li>
+  <li>GitHub repositories for AVBlocks samples</li>
+  <li>C++: Add <a href="https://github.com/avblocks/avblocks-cpp/tree/main/samples/windows/enc_preset_file">enc_preset_file</a> sample</li>
+  <li>.NET: Add <a href="https://github.com/avblocks/avblocks-net/tree/main/samples/enc_preset_file">enc_preset_file</a> sample</li>
+</ul>
+
+<h3 id="docs">Docs</h3>
+
+<ul>
+  <li>Split the wiki to separate <a href="https://wiki.avblocks.com/">C++</a> and <a href="https://wiki-net.avblocks.com/">.NET</a> sites</li>
+</ul>]]></content><author><name>Primo Software</name></author><category term="news" /><summary type="html"><![CDATA[API Remove 32-bit application support (C++ and .NET) C++: Refactor API headers to use lowercase file names and subdirectories for namespaces .NET: New AVBlocks .NET SDK for macOS and Linux (based on .NET Core 6+) Distribute the AVBlocks Core and AVBlocks .NET Core through GitHub]]></summary></entry><entry><title type="html">AVBlocks v2 - What’s New</title><link href="/avblocks-2-whats-new/" rel="alternate" type="text/html" title="AVBlocks v2 - What’s New" /><published>2016-04-16T00:00:00-07:00</published><updated>2016-04-16T00:00:00-07:00</updated><id>/avblocks-2-whats-new</id><content type="html" xml:base="/avblocks-2-whats-new/"><![CDATA[<h3 id="api">API</h3>
+
+<ul>
+  <li>The MediaInfo object now implements the Block abstract interface.</li>
+</ul>
+
+<h3 id="samples">Samples</h3>
+
+<ul>
+  <li>New <code class="language-plaintext highlighter-rouge">overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
+</ul>]]></content><author><name>Primo Software</name></author><category term="news" /><summary type="html"><![CDATA[API The MediaInfo object now implements the Block abstract interface. Samples New overlay_mp4_png_file sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.]]></summary></entry><entry><title type="html">Controling H.264 decoding latency</title><link href="/controling-h-264-decoding-latency/" rel="alternate" type="text/html" title="Controling H.264 decoding latency" /><published>2013-12-17T00:00:00-08:00</published><updated>2013-12-17T00:00:00-08:00</updated><id>/controling-h-264-decoding-latency</id><content type="html" xml:base="/controling-h-264-decoding-latency/"><![CDATA[<p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code class="language-plaintext highlighter-rouge">max_dec_frame_buffering</code> from the AVC / H.264 standard).
+It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.<!--more--></p>
+
+<p>Here are some key notes about using this parameter:</p>
+
+<ul>
+  <li>It must be set to the output pin (see the sample code below)</li>
+  <li>The supported values are 0 and 1. A negative value is ignored.</li>
+  <li>MaxDecFrameBuffering(0) achieves decoding latency of 0 frames for progressive streams and 1 frame for interlaced streams.</li>
+  <li>MaxDecFrameBuffering(1) achieves decoding latency of 1 frame both for progressive and interlaced streams.</li>
+  <li>If the stream has B-frames (or more precisely the total number of reference frames is greater than 1) the decoding will still succeed, but decoding latency will be greater than the required one, as a safety guard.</li>
+  <li>With MaxDecFrameBuffering (0|1) only one decoding thread is used, so it hurts performance and it must be used only when low decoding latency is the primary goal.</li>
+</ul>
+
+<p>The following code can be used to set the <code class="language-plaintext highlighter-rouge">MaxDecFrameBuffering</code> parameter to an output pin:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setH264DecodingLatency</span><span class="p">(</span><span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">MediaPin</span><span class="o">*</span> <span class="n">pin</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">desiredLatency</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="p">;</span>
+    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">Param</span><span class="p">;</span>
+    
+    <span class="n">ParameterList</span><span class="o">*</span> <span class="n">params</span> <span class="p">(</span> <span class="n">Library</span><span class="o">::</span><span class="n">createParameterList</span><span class="p">()</span> <span class="p">);</span>
+        <span class="n">IntParameter</span><span class="o">*</span> <span class="n">maxDecFrameBuffering</span> <span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createIntParameter</span><span class="p">()</span> <span class="p">);</span>
+            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setName</span><span class="p">(</span><span class="n">Decoder</span><span class="o">::</span><span class="n">Video</span><span class="o">::</span><span class="n">H264</span><span class="o">::</span><span class="n">VUI</span><span class="o">::</span><span class="n">MaxDecFrameBuffering</span><span class="p">);</span>
+            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setValue</span><span class="p">(</span><span class="n">desiredLatency</span><span class="p">);</span>
+            <span class="n">params</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">maxDecFrameBuffering</span><span class="p">);</span>
+        <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+        <span class="n">pin</span><span class="o">-&gt;</span><span class="n">setParams</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+    <span class="n">params</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name>Primo Software</name></author><category term="tips-and-tricks" /><summary type="html"><![CDATA[There is a new parameter in AVBlocks 1.8 called MaxDecFrameBuffering (corresponding to max_dec_frame_buffering from the AVC / H.264 standard). It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.]]></summary></entry><entry><title type="html">AVBlocks will not load if Wmvcore.dll is not present on user’s system</title><link href="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/" rel="alternate" type="text/html" title="AVBlocks will not load if Wmvcore.dll is not present on user’s system" /><published>2013-09-09T00:00:00-07:00</published><updated>2013-09-09T00:00:00-07:00</updated><id>/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system</id><content type="html" xml:base="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/"><![CDATA[<blockquote>
+  <p>Update: This issue has been fixed as of version 1.6.</p>
+</blockquote>
+
+<p>Wmvcore.dll is standard on all editions of Windows Vista and Windows 7 with the exception of the “N” editions. The “N” editions are distributed in Europe and do not include Windows Media Player and its related technologies.</p>
+
+<p>The following versions of Windows Vista or Window 7 are affected:</p>
+
+<ul>
+  <li>Windows 7 Starter N</li>
+  <li>Windows 7 Home Premium N</li>
+  <li>Windows 7 Professional N</li>
+  <li>Windows 7 Ultimate N</li>
+  <li>Windows Vista Home Basic N</li>
+  <li>Windows Vista Business N</li>
+  <li>Windows Vista Home Basic KN</li>
+  <li>Windows Vista Business KN</li>
+</ul>
+
+<p>AVBlocks depends on the following Wmvcore.dll functions for ASF muxing and demuxing:</p>
+
+<ul>
+  <li>WMCreateProfileManager</li>
+  <li>WMCreateSyncReader</li>
+  <li>WMCreateWriter</li>
+</ul>
+
+<p>We are fixing this issue by changing the code to load Wmvcore.dll on-demand. This fix will be available in AVBlocks 1.6.</p>]]></content><author><name>Primo Software</name></author><category term="tips-and-tricks" /><category term="windows" /><category term="WMV" /><summary type="html"><![CDATA[Update: This issue has been fixed as of version 1.6. Wmvcore.dll is standard on all editions of Windows Vista and Windows 7 with the exception of the “N” editions. The “N” editions are distributed in Europe and do not include Windows Media Player and its related technologies.]]></summary></entry><entry><title type="html">How to set license string in AVBlocks</title><link href="/how-to-set-license-string-in-avblocks/" rel="alternate" type="text/html" title="How to set license string in AVBlocks" /><published>2013-05-29T00:00:00-07:00</published><updated>2013-05-29T00:00:00-07:00</updated><id>/how-to-set-license-string-in-avblocks</id><content type="html" xml:base="/how-to-set-license-string-in-avblocks/"><![CDATA[<p>This post assumes that you are using AVBlocks for .NET and you have purchased a license from the <a href="https://lm.primosoftware.com" title="License Managerment">License Management</a> site.</p>
+
+<p>When you license a Primo Software product you usually get a license file in the email. The license file is basically a signed XML string that describes the products and features you have licensed. Then you have to provide the license to AVBlocks with the Library.SetLicense method.</p>
+
+<p>Here is a code snippet in C#:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">string</span> <span class="n">license</span> <span class="p">=</span> 
+    <span class="s">@"&lt;primoSoftware&gt;
+      &lt;license version='1.0'&gt;
+        &lt;token&gt;abcdefghijklmnop&lt;/token&gt;
+        &lt;revision&gt;1&lt;/revision&gt;
+        &lt;issueDate&gt;2013-05-23&lt;/issueDate&gt;
+        &lt;expireDate&gt;2014-05-24&lt;/expireDate&gt;
+        &lt;updateTime&gt;2013-05-23 21:02:44&lt;/updateTime&gt;
+        &lt;item id='avb-win'&gt;
+          &lt;product&gt;avb&lt;/product&gt;
+          &lt;feature id='h264-enc' /&gt;
+          &lt;feature id='pcm' /&gt;
+        &lt;/item&gt;    
+    	&lt;signature&gt;abcd-long-signature-string-here&lt;/signature&gt;
+      &lt;/license&gt;
+    &lt;/primoSoftware&gt;"</span><span class="p">;</span>
+    
+<span class="n">Library</span><span class="p">.</span><span class="nf">SetLicense</span><span class="p">(</span><span class="n">license</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The license above is for AVBlocks for Windows (<code class="language-plaintext highlighter-rouge">avb-win</code>) and includes the AVC / H.264 Encoder (<code class="language-plaintext highlighter-rouge">h264-enc</code>) and PCM Audio (<code class="language-plaintext highlighter-rouge">pcm</code>) features.</p>
+
+<p>Then the following calls should return true for the license above:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
+<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>NOTES:</p>
+
+<ol>
+  <li>
+    <p>Calling <code class="language-plaintext highlighter-rouge">Library.SetLicense</code> on any of the AVBlocks Demo libraries will fail. The Demo version cannot be licensed. If you downloaded AVBlocks from <a href="https://avblocks.com/download/" title="www.avblocks.com">www.avblocks.com</a> then you have the Demo product. You need to get your AVBlocks copy from the Downloads section of the <a href="https://lm.primosoftware.com">License Manager</a> site.</p>
+  </li>
+  <li>
+    <p>You should be careful when formatting the license XML as it may become invalid.</p>
+  </li>
+</ol>
+
+<p>Here are the rules:</p>
+
+<ul>
+  <li>It’s OK to reformat the blank space between the xml elements in the license (spaces, new lines) the way you wish.</li>
+  <li>It’s also OK to substitute the double quotes with single quotes (as shown in the example above), otherwise you need to escape the double quotes.</li>
+  <li>It’s NOT OK to reorder elements or change the letter case.</li>
+</ul>]]></content><author><name>Primo Software</name></author><category term="license" /><category term="sample-code" /><category term="tips-and-tricks" /><summary type="html"><![CDATA[This post assumes that you are using AVBlocks for .NET and you have purchased a license from the License Management site. When you license a Primo Software product you usually get a license file in the email. The license file is basically a signed XML string that describes the products and features you have licensed. Then you have to provide the license to AVBlocks with the Library.SetLicense method.]]></summary></entry><entry><title type="html">AVBlocks in demo mode</title><link href="/avblocks-in-demo-mode/" rel="alternate" type="text/html" title="AVBlocks in demo mode" /><published>2012-10-20T00:00:00-07:00</published><updated>2012-10-20T00:00:00-07:00</updated><id>/avblocks-in-demo-mode</id><content type="html" xml:base="/avblocks-in-demo-mode/"><![CDATA[<p>The following restrictions apply when AVBlocks works in demo mode:</p>
+
+<ul>
+  <li>For video streams, a semi-transparent logo is overlaid on top of each video frame.</li>
+  <li>For audio streams, a short audio sample is mixed in the original track at random places.</li>
+</ul>
+
+<p>The demo restrictions are removed when a valid XML license is passed to <code class="language-plaintext highlighter-rouge">Library::setLicense</code> API method.</p>]]></content><author><name>Primo Software</name></author><category term="demo" /><summary type="html"><![CDATA[The following restrictions apply when AVBlocks works in demo mode: For video streams, a semi-transparent logo is overlaid on top of each video frame. For audio streams, a short audio sample is mixed in the original track at random places. The demo restrictions are removed when a valid XML license is passed to Library::setLicense API method.]]></summary></entry></feed>
