@@ -1,1 +1,1 @@
-Sitemap: /sitemap.xml
+Sitemap: https://blog.avblocks.com/sitemap.xml
