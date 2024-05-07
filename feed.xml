@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://blog.avblocks.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.avblocks.com/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-05-07T11:08:48-07:00</updated><id>https://blog.avblocks.com/feed.xml</id><title type="html">AVBlocks™</title><subtitle>&amp;copy; Primo Software</subtitle><author><name>Primo Software</name></author><entry><title type="html">How to configure output socket for MP3 encoding in C++</title><link href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/" rel="alternate" type="text/html" title="How to configure output socket for MP3 encoding in C++" /><published>2024-05-06T00:00:00-07:00</published><updated>2024-05-06T00:00:00-07:00</updated><id>https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp</id><content type="html" xml:base="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/"><![CDATA[<p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://blog.avblocks.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.avblocks.com/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-05-07T12:22:21-07:00</updated><id>https://blog.avblocks.com/feed.xml</id><title type="html">AVBlocks™</title><subtitle>&amp;copy; Primo Software</subtitle><author><name>Primo Software</name></author><entry><title type="html">How to configure output socket for MP3 encoding in C++</title><link href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/" rel="alternate" type="text/html" title="How to configure output socket for MP3 encoding in C++" /><published>2024-05-06T00:00:00-07:00</published><updated>2024-05-06T00:00:00-07:00</updated><id>https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp</id><content type="html" xml:base="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/"><![CDATA[<p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
 
 <h2 id="diagram">Diagram</h2>
 
@@ -13,35 +13,35 @@
 
 <h2 id="code">Code</h2>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primo</span><span class="o">::</span><span class="n">ref</span><span class="o">&lt;</span><span class="n">MediaSocket</span><span class="o">&gt;</span> <span class="n">createOutputSocket</span><span class="p">(</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">opt</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">auto</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">primo</span><span class="o">::</span><span class="n">make_ref</span><span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createMediaSocket</span><span class="p">());</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">setFile</span><span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">outputFile</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">setStreamType</span><span class="p">(</span><span class="n">StreamType</span><span class="o">::</span><span class="n">MPEG_Audio</span><span class="p">);</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">setStreamSubType</span><span class="p">(</span><span class="n">StreamSubType</span><span class="o">::</span><span class="n">MPEG_Audio_Layer3</span><span class="p">);</span>
+<pre><code class="language-cpp">primo::ref&lt;MediaSocket&gt; createOutputSocket(Options&amp; opt)
+{
+    auto socket = primo::make_ref(Library::createMediaSocket());
+    socket-&gt;setFile(opt.outputFile.c_str());
+    socket-&gt;setStreamType(StreamType::MPEG_Audio);
+    socket-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
 
-    <span class="k">auto</span> <span class="n">pin</span> <span class="o">=</span> <span class="n">primo</span><span class="o">::</span><span class="n">make_ref</span><span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createMediaPin</span><span class="p">());</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">pins</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">pin</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    auto pin = primo::make_ref(Library::createMediaPin());
+    socket-&gt;pins()-&gt;add(pin.get());
 
-    <span class="k">auto</span> <span class="n">asi</span> <span class="o">=</span> <span class="n">primo</span><span class="o">::</span><span class="n">make_ref</span><span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createAudioStreamInfo</span><span class="p">());</span>
-    <span class="n">pin</span><span class="o">-&gt;</span><span class="n">setStreamInfo</span><span class="p">(</span><span class="n">asi</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    auto asi = primo::make_ref(Library::createAudioStreamInfo());
+    pin-&gt;setStreamInfo(asi.get());
 
-    <span class="n">asi</span><span class="o">-&gt;</span><span class="n">setStreamType</span><span class="p">(</span><span class="n">StreamType</span><span class="o">::</span><span class="n">MPEG_Audio</span><span class="p">);</span>
-    <span class="n">asi</span><span class="o">-&gt;</span><span class="n">setStreamSubType</span><span class="p">(</span><span class="n">StreamSubType</span><span class="o">::</span><span class="n">MPEG_Audio_Layer3</span><span class="p">);</span>
+    asi-&gt;setStreamType(StreamType::MPEG_Audio);
+    asi-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
 
-    <span class="c1">// Change the encoding bitrate with the following line. The default bitrate is 128000. You can set it to 192000, 256000, etc.</span>
-    <span class="c1">// asi-&gt;setBitrate(192000);</span>
+    // Change the encoding bitrate with the following line. The default bitrate is 128000. You can set it to 192000, 256000, etc.
+    // asi-&gt;setBitrate(192000);
 
-    <span class="c1">// Change the sampling rate and the number of the channels, e.g. Mono, 44.1 Khz</span>
-    <span class="c1">// asi-&gt;setChannels(1);</span>
-    <span class="c1">// asi-&gt;setSampleRate(44100);</span>
+    // Change the sampling rate and the number of the channels, e.g. Mono, 44.1 Khz
+    // asi-&gt;setChannels(1);
+    // asi-&gt;setSampleRate(44100);
 
-    <span class="c1">// Change the stereo mode, e.g. Joint Stereo</span>
-    <span class="c1">// pin-&gt;params()-&gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);</span>
+    // Change the stereo mode, e.g. Joint Stereo
+    // pin-&gt;params()-&gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);
 
-    <span class="k">return</span> <span class="n">socket</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
+    return socket;
+}
+</code></pre>
 
 <p>The complete program is available on <a href="https://github.com/avblocks/avblocks-cpp">GitHub</a>:</p>
 
@@ -80,8 +80,8 @@
 <h3 id="samples">Samples</h3>
 
 <ul>
-  <li>New <code class="language-plaintext highlighter-rouge">overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
-</ul>]]></content><author><name>Primo Software</name></author><category term="news" /><summary type="html"><![CDATA[API The MediaInfo object now implements the Block abstract interface. Samples New overlay_mp4_png_file sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.]]></summary></entry><entry><title type="html">Controling H.264 decoding latency</title><link href="https://blog.avblocks.com/controling-h-264-decoding-latency/" rel="alternate" type="text/html" title="Controling H.264 decoding latency" /><published>2013-12-17T00:00:00-08:00</published><updated>2013-12-17T00:00:00-08:00</updated><id>https://blog.avblocks.com/controling-h-264-decoding-latency</id><content type="html" xml:base="https://blog.avblocks.com/controling-h-264-decoding-latency/"><![CDATA[<p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code class="language-plaintext highlighter-rouge">max_dec_frame_buffering</code> from the AVC / H.264 standard).
+  <li>New <code>overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
+</ul>]]></content><author><name>Primo Software</name></author><category term="news" /><summary type="html"><![CDATA[API The MediaInfo object now implements the Block abstract interface. Samples New overlay_mp4_png_file sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.]]></summary></entry><entry><title type="html">Controling H.264 decoding latency</title><link href="https://blog.avblocks.com/controling-h-264-decoding-latency/" rel="alternate" type="text/html" title="Controling H.264 decoding latency" /><published>2013-12-17T00:00:00-08:00</published><updated>2013-12-17T00:00:00-08:00</updated><id>https://blog.avblocks.com/controling-h-264-decoding-latency</id><content type="html" xml:base="https://blog.avblocks.com/controling-h-264-decoding-latency/"><![CDATA[<p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code>max_dec_frame_buffering</code> from the AVC / H.264 standard).
 It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.<!--more--></p>
 
 <p>Here are some key notes about using this parameter:</p>
@@ -95,23 +95,23 @@ It controls the decoded picture buffer size of the decoder and indirectly affect
   <li>With MaxDecFrameBuffering (0|1) only one decoding thread is used, so it hurts performance and it must be used only when low decoding latency is the primary goal.</li>
 </ul>
 
-<p>The following code can be used to set the <code class="language-plaintext highlighter-rouge">MaxDecFrameBuffering</code> parameter to an output pin:</p>
+<p>The following code can be used to set the <code>MaxDecFrameBuffering</code> parameter to an output pin:</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setH264DecodingLatency</span><span class="p">(</span><span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">MediaPin</span><span class="o">*</span> <span class="n">pin</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">desiredLatency</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="p">;</span>
-    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">Param</span><span class="p">;</span>
+<pre><code class="language-cpp">void setH264DecodingLatency(primo::avblocks::MediaPin* pin, int32_t desiredLatency)
+{
+    using namespace primo::avblocks;
+    using namespace primo::avblocks::Param;
     
-    <span class="n">ParameterList</span><span class="o">*</span> <span class="n">params</span> <span class="p">(</span> <span class="n">Library</span><span class="o">::</span><span class="n">createParameterList</span><span class="p">()</span> <span class="p">);</span>
-        <span class="n">IntParameter</span><span class="o">*</span> <span class="n">maxDecFrameBuffering</span> <span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createIntParameter</span><span class="p">()</span> <span class="p">);</span>
-            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setName</span><span class="p">(</span><span class="n">Decoder</span><span class="o">::</span><span class="n">Video</span><span class="o">::</span><span class="n">H264</span><span class="o">::</span><span class="n">VUI</span><span class="o">::</span><span class="n">MaxDecFrameBuffering</span><span class="p">);</span>
-            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setValue</span><span class="p">(</span><span class="n">desiredLatency</span><span class="p">);</span>
-            <span class="n">params</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">maxDecFrameBuffering</span><span class="p">);</span>
-        <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
-        <span class="n">pin</span><span class="o">-&gt;</span><span class="n">setParams</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
-    <span class="n">params</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div></div>]]></content><author><name>Primo Software</name></author><category term="tips-and-tricks" /><category term="video" /><category term="decoder" /><category term="h.264" /><category term="avc" /><summary type="html"><![CDATA[There is a new parameter in AVBlocks 1.8 called MaxDecFrameBuffering (corresponding to max_dec_frame_buffering from the AVC / H.264 standard). It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.]]></summary></entry><entry><title type="html">AVBlocks will not load if Wmvcore.dll is not present on user’s system</title><link href="https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/" rel="alternate" type="text/html" title="AVBlocks will not load if Wmvcore.dll is not present on user’s system" /><published>2013-09-09T00:00:00-07:00</published><updated>2013-09-09T00:00:00-07:00</updated><id>https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system</id><content type="html" xml:base="https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/"><![CDATA[<blockquote>
+    ParameterList* params ( Library::createParameterList() );
+        IntParameter* maxDecFrameBuffering (Library::createIntParameter() );
+            maxDecFrameBuffering-&gt;setName(Decoder::Video::H264::VUI::MaxDecFrameBuffering);
+            maxDecFrameBuffering-&gt;setValue(desiredLatency);
+            params-&gt;add(maxDecFrameBuffering);
+        maxDecFrameBuffering-&gt;release();
+        pin-&gt;setParams(params);
+    params-&gt;release();
+}
+</code></pre>]]></content><author><name>Primo Software</name></author><category term="tips-and-tricks" /><category term="video" /><category term="decoder" /><category term="h.264" /><category term="avc" /><summary type="html"><![CDATA[There is a new parameter in AVBlocks 1.8 called MaxDecFrameBuffering (corresponding to max_dec_frame_buffering from the AVC / H.264 standard). It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.]]></summary></entry><entry><title type="html">AVBlocks will not load if Wmvcore.dll is not present on user’s system</title><link href="https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/" rel="alternate" type="text/html" title="AVBlocks will not load if Wmvcore.dll is not present on user’s system" /><published>2013-09-09T00:00:00-07:00</published><updated>2013-09-09T00:00:00-07:00</updated><id>https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system</id><content type="html" xml:base="https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/"><![CDATA[<blockquote>
   <p>Update: This issue has been fixed as of version 1.6.</p>
 </blockquote>
 
@@ -144,8 +144,8 @@ It controls the decoded picture buffer size of the decoder and indirectly affect
 
 <p>Here is a code snippet in C#:</p>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">string</span> <span class="n">license</span> <span class="p">=</span> 
-    <span class="s">@"&lt;primoSoftware&gt;
+<pre><code class="language-csharp">const string license = 
+    @"&lt;primoSoftware&gt;
       &lt;license version='1.0'&gt;
         &lt;token&gt;abcdefghijklmnop&lt;/token&gt;
         &lt;revision&gt;1&lt;/revision&gt;
@@ -159,27 +159,27 @@ It controls the decoded picture buffer size of the decoder and indirectly affect
         &lt;/item&gt;    
     	&lt;signature&gt;abcd-long-signature-string-here&lt;/signature&gt;
       &lt;/license&gt;
-    &lt;/primoSoftware&gt;"</span><span class="p">;</span>
+    &lt;/primoSoftware&gt;";
     
-<span class="n">Library</span><span class="p">.</span><span class="nf">SetLicense</span><span class="p">(</span><span class="n">license</span><span class="p">);</span>
-</code></pre></div></div>
+Library.SetLicense(license);
+</code></pre>
 
-<p>The license above is for AVBlocks for Windows (<code class="language-plaintext highlighter-rouge">avb-win</code>) and includes the AVC / H.264 Encoder (<code class="language-plaintext highlighter-rouge">h264-enc</code>) and PCM Audio (<code class="language-plaintext highlighter-rouge">pcm</code>) features.</p>
+<p>The license above is for AVBlocks for Windows (<code>avb-win</code>) and includes the AVC / H.264 Encoder (<code>h264-enc</code>) and PCM Audio (<code>pcm</code>) features.</p>
 
 <p>Then the following calls should return true for the license above:</p>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
-</code></pre></div></div>
+<pre><code class="language-csharp">Library.IsLicensed(null, null);
+Library.IsLicensed(null, "h264-enc");
+Library.IsLicensed(null, "pcm");
+Library.IsLicensed("avb", "h264-enc");
+Library.IsLicensed("avb", "pcm");
+</code></pre>
 
 <p>NOTES:</p>
 
 <ol>
   <li>
-    <p>Calling <code class="language-plaintext highlighter-rouge">Library.SetLicense</code> on any of the AVBlocks Demo libraries will fail. The Demo version cannot be licensed. If you downloaded AVBlocks from <a href="https://avblocks.com/download/" title="www.avblocks.com">www.avblocks.com</a> then you have the Demo product. You need to get your AVBlocks copy from the Downloads section of the <a href="https://lm.primosoftware.com">License Manager</a> site.</p>
+    <p>Calling <code>Library.SetLicense</code> on any of the AVBlocks Demo libraries will fail. The Demo version cannot be licensed. If you downloaded AVBlocks from <a href="https://avblocks.com/download/" title="www.avblocks.com">www.avblocks.com</a> then you have the Demo product. You need to get your AVBlocks copy from the Downloads section of the <a href="https://lm.primosoftware.com">License Manager</a> site.</p>
   </li>
   <li>
     <p>You should be careful when formatting the license XML as it may become invalid.</p>
@@ -199,4 +199,4 @@ It controls the decoded picture buffer size of the decoder and indirectly affect
   <li>For audio streams, a short audio sample is mixed in the original track at random places.</li>
 </ul>
 
-<p>The demo restrictions are removed when a valid XML license is passed to <code class="language-plaintext highlighter-rouge">Library::setLicense</code> API method.</p>]]></content><author><name>Primo Software</name></author><category term="demo" /><summary type="html"><![CDATA[The following restrictions apply when AVBlocks works in demo mode: For video streams, a semi-transparent logo is overlaid on top of each video frame. For audio streams, a short audio sample is mixed in the original track at random places. The demo restrictions are removed when a valid XML license is passed to Library::setLicense API method.]]></summary></entry></feed>
+<p>The demo restrictions are removed when a valid XML license is passed to <code>Library::setLicense</code> API method.</p>]]></content><author><name>Primo Software</name></author><category term="demo" /><summary type="html"><![CDATA[The following restrictions apply when AVBlocks works in demo mode: For video streams, a semi-transparent logo is overlaid on top of each video frame. For audio streams, a short audio sample is mixed in the original track at random places. The demo restrictions are removed when a valid XML license is passed to Library::setLicense API method.]]></summary></entry></feed>

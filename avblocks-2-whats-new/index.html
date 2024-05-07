@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+
+
+<link href="/assets/prism/prism.css" rel="stylesheet" /> 
+<style>
+    code {
+        font-size: 14px !important;
+    }
+</style>
+
+<script src="/assets/prism/prism.js"></script>
+<script>
+    // don't highlight mermaid code
+    Prism.plugins.filterHighlightAll.add(function (env) {
+        return env.language !== 'mermaid';
+    });
+</script>
+
+
+
 </head>
 
 
@@ -71,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <h3 id="samples">Samples</h3>
 
 <ul>
-  <li>New <code class="language-plaintext highlighter-rouge">overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
+  <li>New <code>overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
 </ul>
 
   

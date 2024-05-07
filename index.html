@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+
+
+<link href="/assets/prism/prism.css" rel="stylesheet" /> 
+<style>
+    code {
+        font-size: 14px !important;
+    }
+</style>
+
+<script src="/assets/prism/prism.js"></script>
+<script>
+    // don't highlight mermaid code
+    Prism.plugins.filterHighlightAll.add(function (env) {
+        return env.language !== 'mermaid';
+    });
+</script>
+
+
+
 </head>
 
 
@@ -112,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <h3 id="samples">Samples</h3>
 
 <ul>
-  <li>New <code class="language-plaintext highlighter-rouge">overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
+  <li>New <code>overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
 </ul>
 
     <div class="more"><a href="/avblocks-2-whats-new/">read more</a></div>
@@ -123,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   <h1><a href="/controling-h-264-decoding-latency/">Controling H.264 decoding latency</a></h1><time datetime="2013-12-17T00:00:00-08:00">December 17, 2013</time>
 </header>
 
-    <p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code class="language-plaintext highlighter-rouge">max_dec_frame_buffering</code> from the AVC / H.264 standard).
+    <p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code>max_dec_frame_buffering</code> from the AVC / H.264 standard).
 It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.<!--more--></p>
 
 
@@ -168,7 +187,7 @@ It controls the decoded picture buffer size of the decoder and indirectly affect
   <li>For audio streams, a short audio sample is mixed in the original track at random places.</li>
 </ul>
 
-<p>The demo restrictions are removed when a valid XML license is passed to <code class="language-plaintext highlighter-rouge">Library::setLicense</code> API method.</p>
+<p>The demo restrictions are removed when a valid XML license is passed to <code>Library::setLicense</code> API method.</p>
 
     <div class="more"><a href="/avblocks-in-demo-mode/">read more</a></div>
   </article>

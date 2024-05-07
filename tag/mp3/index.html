@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+
+
+<link href="/assets/prism/prism.css" rel="stylesheet" /> 
+<style>
+    code {
+        font-size: 14px !important;
+    }
+</style>
+
+<script src="/assets/prism/prism.js"></script>
+<script>
+    // don't highlight mermaid code
+    Prism.plugins.filterHighlightAll.add(function (env) {
+        return env.language !== 'mermaid';
+    });
+</script>
+
+
+
 </head>
 
 

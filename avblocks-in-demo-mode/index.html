@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+
+
+<link href="/assets/prism/prism.css" rel="stylesheet" /> 
+<style>
+    code {
+        font-size: 14px !important;
+    }
+</style>
+
+<script src="/assets/prism/prism.js"></script>
+<script>
+    // don't highlight mermaid code
+    Prism.plugins.filterHighlightAll.add(function (env) {
+        return env.language !== 'mermaid';
+    });
+</script>
+
+
+
 </head>
 
 
@@ -69,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   <li>For audio streams, a short audio sample is mixed in the original track at random places.</li>
 </ul>
 
-<p>The demo restrictions are removed when a valid XML license is passed to <code class="language-plaintext highlighter-rouge">Library::setLicense</code> API method.</p>
+<p>The demo restrictions are removed when a valid XML license is passed to <code>Library::setLicense</code> API method.</p>
 
   
     <hr>

@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+
+
+<link href="/assets/prism/prism.css" rel="stylesheet" /> 
+<style>
+    code {
+        font-size: 14px !important;
+    }
+</style>
+
+<script src="/assets/prism/prism.js"></script>
+<script>
+    // don't highlight mermaid code
+    Prism.plugins.filterHighlightAll.add(function (env) {
+        return env.language !== 'mermaid';
+    });
+</script>
+
+
+
 </head>
 
 
@@ -77,35 +96,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <h2 id="code">Code</h2>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primo</span><span class="o">::</span><span class="n">ref</span><span class="o">&lt;</span><span class="n">MediaSocket</span><span class="o">&gt;</span> <span class="n">createOutputSocket</span><span class="p">(</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">opt</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">auto</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">primo</span><span class="o">::</span><span class="n">make_ref</span><span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createMediaSocket</span><span class="p">());</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">setFile</span><span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">outputFile</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">setStreamType</span><span class="p">(</span><span class="n">StreamType</span><span class="o">::</span><span class="n">MPEG_Audio</span><span class="p">);</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">setStreamSubType</span><span class="p">(</span><span class="n">StreamSubType</span><span class="o">::</span><span class="n">MPEG_Audio_Layer3</span><span class="p">);</span>
+<pre><code class="language-cpp">primo::ref&lt;MediaSocket&gt; createOutputSocket(Options&amp; opt)
+{
+    auto socket = primo::make_ref(Library::createMediaSocket());
+    socket-&gt;setFile(opt.outputFile.c_str());
+    socket-&gt;setStreamType(StreamType::MPEG_Audio);
+    socket-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
 
-    <span class="k">auto</span> <span class="n">pin</span> <span class="o">=</span> <span class="n">primo</span><span class="o">::</span><span class="n">make_ref</span><span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createMediaPin</span><span class="p">());</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">pins</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">pin</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    auto pin = primo::make_ref(Library::createMediaPin());
+    socket-&gt;pins()-&gt;add(pin.get());
 
-    <span class="k">auto</span> <span class="n">asi</span> <span class="o">=</span> <span class="n">primo</span><span class="o">::</span><span class="n">make_ref</span><span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createAudioStreamInfo</span><span class="p">());</span>
-    <span class="n">pin</span><span class="o">-&gt;</span><span class="n">setStreamInfo</span><span class="p">(</span><span class="n">asi</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    auto asi = primo::make_ref(Library::createAudioStreamInfo());
+    pin-&gt;setStreamInfo(asi.get());
 
-    <span class="n">asi</span><span class="o">-&gt;</span><span class="n">setStreamType</span><span class="p">(</span><span class="n">StreamType</span><span class="o">::</span><span class="n">MPEG_Audio</span><span class="p">);</span>
-    <span class="n">asi</span><span class="o">-&gt;</span><span class="n">setStreamSubType</span><span class="p">(</span><span class="n">StreamSubType</span><span class="o">::</span><span class="n">MPEG_Audio_Layer3</span><span class="p">);</span>
+    asi-&gt;setStreamType(StreamType::MPEG_Audio);
+    asi-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
 
-    <span class="c1">// Change the encoding bitrate with the following line. The default bitrate is 128000. You can set it to 192000, 256000, etc.</span>
-    <span class="c1">// asi-&gt;setBitrate(192000);</span>
+    // Change the encoding bitrate with the following line. The default bitrate is 128000. You can set it to 192000, 256000, etc.
+    // asi-&gt;setBitrate(192000);
 
-    <span class="c1">// Change the sampling rate and the number of the channels, e.g. Mono, 44.1 Khz</span>
-    <span class="c1">// asi-&gt;setChannels(1);</span>
-    <span class="c1">// asi-&gt;setSampleRate(44100);</span>
+    // Change the sampling rate and the number of the channels, e.g. Mono, 44.1 Khz
+    // asi-&gt;setChannels(1);
+    // asi-&gt;setSampleRate(44100);
 
-    <span class="c1">// Change the stereo mode, e.g. Joint Stereo</span>
-    <span class="c1">// pin-&gt;params()-&gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);</span>
+    // Change the stereo mode, e.g. Joint Stereo
+    // pin-&gt;params()-&gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);
 
-    <span class="k">return</span> <span class="n">socket</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
+    return socket;
+}
+</code></pre>
 
 <p>The complete program is available on <a href="https://github.com/avblocks/avblocks-cpp">GitHub</a>:</p>
 

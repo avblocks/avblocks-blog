@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+
+
+<link href="/assets/prism/prism.css" rel="stylesheet" /> 
+<style>
+    code {
+        font-size: 14px !important;
+    }
+</style>
+
+<script src="/assets/prism/prism.js"></script>
+<script>
+    // don't highlight mermaid code
+    Prism.plugins.filterHighlightAll.add(function (env) {
+        return env.language !== 'mermaid';
+    });
+</script>
+
+
+
 </head>
 
 
@@ -68,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <p>Here is a code snippet in C#:</p>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">string</span> <span class="n">license</span> <span class="p">=</span> 
-    <span class="s">@"&lt;primoSoftware&gt;
+<pre><code class="language-csharp">const string license = 
+    @"&lt;primoSoftware&gt;
       &lt;license version='1.0'&gt;
         &lt;token&gt;abcdefghijklmnop&lt;/token&gt;
         &lt;revision&gt;1&lt;/revision&gt;
@@ -83,27 +102,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         &lt;/item&gt;    
     	&lt;signature&gt;abcd-long-signature-string-here&lt;/signature&gt;
       &lt;/license&gt;
-    &lt;/primoSoftware&gt;"</span><span class="p">;</span>
+    &lt;/primoSoftware&gt;";
     
-<span class="n">Library</span><span class="p">.</span><span class="nf">SetLicense</span><span class="p">(</span><span class="n">license</span><span class="p">);</span>
-</code></pre></div></div>
+Library.SetLicense(license);
+</code></pre>
 
-<p>The license above is for AVBlocks for Windows (<code class="language-plaintext highlighter-rouge">avb-win</code>) and includes the AVC / H.264 Encoder (<code class="language-plaintext highlighter-rouge">h264-enc</code>) and PCM Audio (<code class="language-plaintext highlighter-rouge">pcm</code>) features.</p>
+<p>The license above is for AVBlocks for Windows (<code>avb-win</code>) and includes the AVC / H.264 Encoder (<code>h264-enc</code>) and PCM Audio (<code>pcm</code>) features.</p>
 
 <p>Then the following calls should return true for the license above:</p>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"h264-enc"</span><span class="p">);</span>
-<span class="n">Library</span><span class="p">.</span><span class="nf">IsLicensed</span><span class="p">(</span><span class="s">"avb"</span><span class="p">,</span> <span class="s">"pcm"</span><span class="p">);</span>
-</code></pre></div></div>
+<pre><code class="language-csharp">Library.IsLicensed(null, null);
+Library.IsLicensed(null, "h264-enc");
+Library.IsLicensed(null, "pcm");
+Library.IsLicensed("avb", "h264-enc");
+Library.IsLicensed("avb", "pcm");
+</code></pre>
 
 <p>NOTES:</p>
 
 <ol>
   <li>
-    <p>Calling <code class="language-plaintext highlighter-rouge">Library.SetLicense</code> on any of the AVBlocks Demo libraries will fail. The Demo version cannot be licensed. If you downloaded AVBlocks from <a href="https://avblocks.com/download/" title="www.avblocks.com">www.avblocks.com</a> then you have the Demo product. You need to get your AVBlocks copy from the Downloads section of the <a href="https://lm.primosoftware.com">License Manager</a> site.</p>
+    <p>Calling <code>Library.SetLicense</code> on any of the AVBlocks Demo libraries will fail. The Demo version cannot be licensed. If you downloaded AVBlocks from <a href="https://avblocks.com/download/" title="www.avblocks.com">www.avblocks.com</a> then you have the Demo product. You need to get your AVBlocks copy from the Downloads section of the <a href="https://lm.primosoftware.com">License Manager</a> site.</p>
   </li>
   <li>
     <p>You should be careful when formatting the license XML as it may become invalid.</p>

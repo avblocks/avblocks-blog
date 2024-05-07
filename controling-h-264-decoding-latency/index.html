@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+
+
+<link href="/assets/prism/prism.css" rel="stylesheet" /> 
+<style>
+    code {
+        font-size: 14px !important;
+    }
+</style>
+
+<script src="/assets/prism/prism.js"></script>
+<script>
+    // don't highlight mermaid code
+    Prism.plugins.filterHighlightAll.add(function (env) {
+        return env.language !== 'mermaid';
+    });
+</script>
+
+
+
 </head>
 
 
@@ -62,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   <h1><a href="/controling-h-264-decoding-latency/">Controling H.264 decoding latency</a></h1><time datetime="2013-12-17T00:00:00-08:00">December 17, 2013</time>
 </header>
 
-  <p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code class="language-plaintext highlighter-rouge">max_dec_frame_buffering</code> from the AVC / H.264 standard).
+  <p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code>max_dec_frame_buffering</code> from the AVC / H.264 standard).
 It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.<!--more--></p>
 
 <p>Here are some key notes about using this parameter:</p>
@@ -76,23 +95,23 @@ It controls the decoded picture buffer size of the decoder and indirectly affect
   <li>With MaxDecFrameBuffering (0|1) only one decoding thread is used, so it hurts performance and it must be used only when low decoding latency is the primary goal.</li>
 </ul>
 
-<p>The following code can be used to set the <code class="language-plaintext highlighter-rouge">MaxDecFrameBuffering</code> parameter to an output pin:</p>
+<p>The following code can be used to set the <code>MaxDecFrameBuffering</code> parameter to an output pin:</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setH264DecodingLatency</span><span class="p">(</span><span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">MediaPin</span><span class="o">*</span> <span class="n">pin</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">desiredLatency</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="p">;</span>
-    <span class="k">using</span> <span class="k">namespace</span> <span class="n">primo</span><span class="o">::</span><span class="n">avblocks</span><span class="o">::</span><span class="n">Param</span><span class="p">;</span>
+<pre><code class="language-cpp">void setH264DecodingLatency(primo::avblocks::MediaPin* pin, int32_t desiredLatency)
+{
+    using namespace primo::avblocks;
+    using namespace primo::avblocks::Param;
     
-    <span class="n">ParameterList</span><span class="o">*</span> <span class="n">params</span> <span class="p">(</span> <span class="n">Library</span><span class="o">::</span><span class="n">createParameterList</span><span class="p">()</span> <span class="p">);</span>
-        <span class="n">IntParameter</span><span class="o">*</span> <span class="n">maxDecFrameBuffering</span> <span class="p">(</span><span class="n">Library</span><span class="o">::</span><span class="n">createIntParameter</span><span class="p">()</span> <span class="p">);</span>
-            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setName</span><span class="p">(</span><span class="n">Decoder</span><span class="o">::</span><span class="n">Video</span><span class="o">::</span><span class="n">H264</span><span class="o">::</span><span class="n">VUI</span><span class="o">::</span><span class="n">MaxDecFrameBuffering</span><span class="p">);</span>
-            <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">setValue</span><span class="p">(</span><span class="n">desiredLatency</span><span class="p">);</span>
-            <span class="n">params</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">maxDecFrameBuffering</span><span class="p">);</span>
-        <span class="n">maxDecFrameBuffering</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
-        <span class="n">pin</span><span class="o">-&gt;</span><span class="n">setParams</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
-    <span class="n">params</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div></div>
+    ParameterList* params ( Library::createParameterList() );
+        IntParameter* maxDecFrameBuffering (Library::createIntParameter() );
+            maxDecFrameBuffering-&gt;setName(Decoder::Video::H264::VUI::MaxDecFrameBuffering);
+            maxDecFrameBuffering-&gt;setValue(desiredLatency);
+            params-&gt;add(maxDecFrameBuffering);
+        maxDecFrameBuffering-&gt;release();
+        pin-&gt;setParams(params);
+    params-&gt;release();
+}
+</code></pre>
 
 
   
