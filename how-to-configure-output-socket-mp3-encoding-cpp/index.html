@@ -32,6 +32,20 @@
   gtag('config', 'G-9ZGMP2RVMJ');
 </script>
 
+
+
+<script src="https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) { 
+    mermaid.initialize({
+        startOnLoad:true,
+        theme: "default",
+    });
+
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+});    
+</script>
+
 </head>
 
 
@@ -48,8 +62,20 @@
   <h1><a href="/how-to-configure-output-socket-mp3-encoding-cpp/">How to configure output socket for MP3 encoding in C++</a></h1><time datetime="2024-05-06T00:00:00-07:00">May 06, 2024</time>
 </header>
 
-  <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++: 
-<!--more--></p>
+  <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
+
+<h2 id="diagram">Diagram</h2>
+
+<pre><code class="language-mermaid">flowchart LR
+    mi("&lt;b&gt;MediaInfo Block&lt;/b&gt;\nFile: 123.wav\nopen") 
+    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: WAV\nSubtype: PCM\nFile: 123.wav")
+    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: 123.mp3")
+    tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
+    
+    mi --&gt; |"create"| is --&gt; |"inputs[0]"| tr --&gt; |"outputs[0]"| os
+</code></pre>
+
+<h2 id="code">Code</h2>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primo</span><span class="o">::</span><span class="n">ref</span><span class="o">&lt;</span><span class="n">MediaSocket</span><span class="o">&gt;</span> <span class="n">createOutputSocket</span><span class="p">(</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">opt</span><span class="p">)</span>
 <span class="p">{</span>
