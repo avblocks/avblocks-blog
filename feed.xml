@@ -1,17 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://blog.avblocks.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.avblocks.com/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-05-08T12:40:45-07:00</updated><id>https://blog.avblocks.com/feed.xml</id><title type="html">AVBlocks™</title><subtitle>&amp;copy; Primo Software</subtitle><author><name>Primo Software</name></author><entry><title type="html">How to configure output socket for MP3 encoding in C++</title><link href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/" rel="alternate" type="text/html" title="How to configure output socket for MP3 encoding in C++" /><published>2024-05-06T00:00:00-07:00</published><updated>2024-05-06T00:00:00-07:00</updated><id>https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp</id><content type="html" xml:base="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/"><![CDATA[<p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://blog.avblocks.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.avblocks.com/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-05-08T13:09:28-07:00</updated><id>https://blog.avblocks.com/feed.xml</id><title type="html">AVBlocks™</title><subtitle>&amp;copy; Primo Software</subtitle><author><name>Primo Software</name></author><entry><title type="html">How to configure output socket for AAC / ADTS encoding in C++</title><link href="https://blog.avblocks.com/how-to-configure-output-socket-aac-adts-encoding-cpp/" rel="alternate" type="text/html" title="How to configure output socket for AAC / ADTS encoding in C++" /><published>2024-05-08T00:00:00-07:00</published><updated>2024-05-08T00:00:00-07:00</updated><id>https://blog.avblocks.com/how-to-configure-output-socket-aac-adts-encoding-cpp</id><content type="html" xml:base="https://blog.avblocks.com/how-to-configure-output-socket-aac-adts-encoding-cpp/"><![CDATA[<p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++.</p>
 
 <h2 id="diagram">Diagram</h2>
 
 <pre><code class="language-mermaid">flowchart LR
-    mi("&lt;b&gt;MediaInfo Block&lt;/b&gt;\nFile: 123.wav\nopen") 
-    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: WAV\nSubtype: PCM\nFile: 123.wav")
-    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: 123.mp3")
+    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
+    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: AAC\nSubtype: AAC_ADTS\nFile: output.aac")
     tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
-    
-    mi --&gt; |"create"| is --&gt; |"inputs[0]"| tr --&gt; |"outputs[0]"| os
+    out["output.aac"]
+
+    is --&gt; |"configure\ninputs"| tr 
+    os --&gt; |"configure\noutputs"| tr
+
+    tr --&gt; |"write"| out
 </code></pre>
 
 <h2 id="code">Code</h2>
+
+<p>This is the code for the output socket:</p>
+
+<pre><code class="language-cpp">primo::ref&lt;MediaSocket&gt; createOutputSocket(Options&amp; opt)
+{
+    // create stream info to describe the output audio stream
+    auto asi = primo::make_ref(Library::createAudioStreamInfo());
+    asi-&gt;setStreamType(StreamType::MPEG_Audio);
+    asi-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
+
+    // The default bitrate is 128000. You can set it to 192000, 256000, etc.
+    // asi-&gt;setBitrate(192000);
+
+    // Optionally set the sampling rate and the number of the channels, e.g. 44.1 Khz, Mono 
+    // asi-&gt;setSampleRate(44100);
+    // asi-&gt;setChannels(1);
+
+    // create a pin using the stream info 
+    auto pin = primo::make_ref(Library::createMediaPin());
+    pin-&gt;setStreamInfo(asi.get());
+
+    // the pin allows you to specify additional parameters for the encoder 
+    // for example, change the stereo mode, e.g. Joint Stereo
+    // pin-&gt;params()-&gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);
+
+    // finally create a socket for the output container format which is MP3 in this case
+    auto socket = primo::make_ref(Library::createMediaSocket());
+    socket-&gt;setStreamType(StreamType::MPEG_Audio);
+    socket-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
+
+    socket-&gt;pins()-&gt;add(pin.get());
+
+    // output to a file
+    auto output_file = primo::ustring(opt.outputFile);
+    socket-&gt;setFile(output_file);
+
+    return socket;
+}
+</code></pre>
+
+<p>The complete program is available on <a href="https://github.com/avblocks/avblocks-cpp">GitHub</a>:</p>
+
+<ul>
+  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/darwin/enc_aac_adts_file">enc_aac_adts_file (macOS)</a></li>
+  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/linux/enc_aac_adts_file">enc_aac_adts_file (Linux)</a></li>
+  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/windows/enc_aac_adts_file">enc_aac_adts_file (Windows)</a></li>
+</ul>]]></content><author><name>Primo Software</name></author><category term="tips-and-tricks" /><category term="audio" /><category term="encoder" /><category term="aac" /><category term="adts" /><summary type="html"><![CDATA[Here is a quick snippet for configuring the output socket of a Transcoder for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++. Diagram flowchart LR is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav") os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: AAC\nSubtype: AAC_ADTS\nFile: output.aac") tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose") out["output.aac"] is --&gt; |"configure\ninputs"| tr os --&gt; |"configure\noutputs"| tr tr --&gt; |"write"| out]]></summary></entry><entry><title type="html">How to configure output socket for MP3 encoding in C++</title><link href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/" rel="alternate" type="text/html" title="How to configure output socket for MP3 encoding in C++" /><published>2024-05-06T00:00:00-07:00</published><updated>2024-05-06T00:00:00-07:00</updated><id>https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp</id><content type="html" xml:base="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/"><![CDATA[<p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
+
+<h2 id="diagram">Diagram</h2>
+
+<pre><code class="language-mermaid">flowchart LR
+    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
+    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: output.mp3")
+    tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
+    out["output.mp3"]
+
+    is --&gt; |"configure\ninputs"| tr 
+    os --&gt; |"configure\noutputs"| tr
+
+    tr --&gt; |"write"| out
+</code></pre>
+
+<h2 id="code">Code</h2>
+
+<p>This is the code for the output socket:</p>
 
 <pre><code class="language-cpp">primo::ref&lt;MediaSocket&gt; createOutputSocket(Options&amp; opt)
 {
@@ -54,9 +122,9 @@
 
 <ul>
   <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/darwin/enc_mp3_file">enc_mp3_file (macOS)</a></li>
-  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/darwin/enc_mp3_file">enc_mp3_file (Linux)</a></li>
+  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/linux/enc_mp3_file">enc_mp3_file (Linux)</a></li>
   <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/windows/enc_mp3_file">enc_mp3_file (Windows)</a></li>
-</ul>]]></content><author><name>Primo Software</name></author><category term="tips-and-tricks" /><category term="audio" /><category term="encoder" /><category term="mp3" /><summary type="html"><![CDATA[Here is a quick snippet for configuring the output socket of a Transcoder for MP3 encoding using C++. Diagram flowchart LR mi("&lt;b&gt;MediaInfo Block&lt;/b&gt;\nFile: 123.wav\nopen") is("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: WAV\nSubtype: PCM\nFile: 123.wav") os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: 123.mp3") tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose") mi --&gt; |"create"| is --&gt; |"inputs[0]"| tr --&gt; |"outputs[0]"| os]]></summary></entry><entry><title type="html">AVBlocks v3 - What’s New</title><link href="https://blog.avblocks.com/avblocks-3-whats-new/" rel="alternate" type="text/html" title="AVBlocks v3 - What’s New" /><published>2023-07-05T00:00:00-07:00</published><updated>2023-07-05T00:00:00-07:00</updated><id>https://blog.avblocks.com/avblocks-3-whats-new</id><content type="html" xml:base="https://blog.avblocks.com/avblocks-3-whats-new/"><![CDATA[<h3 id="api">API</h3>
+</ul>]]></content><author><name>Primo Software</name></author><category term="tips-and-tricks" /><category term="audio" /><category term="encoder" /><category term="mp3" /><summary type="html"><![CDATA[Here is a quick snippet for configuring the output socket of a Transcoder for MP3 encoding using C++. Diagram flowchart LR is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav") os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: output.mp3") tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose") out["output.mp3"] is --&gt; |"configure\ninputs"| tr os --&gt; |"configure\noutputs"| tr tr --&gt; |"write"| out]]></summary></entry><entry><title type="html">AVBlocks v3 - What’s New</title><link href="https://blog.avblocks.com/avblocks-3-whats-new/" rel="alternate" type="text/html" title="AVBlocks v3 - What’s New" /><published>2023-07-05T00:00:00-07:00</published><updated>2023-07-05T00:00:00-07:00</updated><id>https://blog.avblocks.com/avblocks-3-whats-new</id><content type="html" xml:base="https://blog.avblocks.com/avblocks-3-whats-new/"><![CDATA[<h3 id="api">API</h3>
 
 <ul>
   <li>Remove 32-bit application support (C++ and .NET)</li>
