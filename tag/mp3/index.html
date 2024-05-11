@@ -46,15 +46,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+<style>
+    :not([class]) {
+        pre {
+            text-align: center;
+        }
+    }    
+</style>
+
 
 
 <link href="/assets/prism/prism.css" rel="stylesheet" /> 
-<style>
-    code {
-        font-size: 15px !important;
-    }
-</style>
-
 <script src="/assets/prism/prism.js"></script>
 <script>
     // don't highlight mermaid code
@@ -62,6 +64,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return env.language !== 'mermaid';
     });
 </script>
+
+<style>
+    code {
+        font-size: 15px !important;
+    }
+</style>
 
 
 
@@ -79,6 +87,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <article>
   <header><h1>mp3</h1></header>
   <ul class="archive">
+    
+    <li>
+      <time datetime="2024-05-11T00:00:00-07:00">2024-05-11</time>
+      <a href="/how-to-configure-output-socket-mp3-encoding-net/">How to configure output socket for MP3 encoding in .NET</a>
+    </li>
     
     <li>
       <time datetime="2024-05-06T00:00:00-07:00">2024-05-06</time>

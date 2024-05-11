@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>  
-<title>How to configure output socket for MP3 encoding in C++ | AVBlocks™</title>
+<title>How to configure output socket for MP3 encoding in .NET | AVBlocks™</title>
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Primo Software">
 <meta name="generator" content="Jekyll v4.2.2">
-<link rel="canonical" href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/">
+<link rel="canonical" href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-net/">
 
 
 <link rel="stylesheet" href="/assets/css/frame.css">
@@ -86,17 +86,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <article>
   <header>
-  <h1><a href="/how-to-configure-output-socket-mp3-encoding-cpp/">How to configure output socket for MP3 encoding in C++</a></h1><time datetime="2024-05-06T00:00:00-07:00">May 06, 2024</time>
+  <h1><a href="/how-to-configure-output-socket-mp3-encoding-net/">How to configure output socket for MP3 encoding in .NET</a></h1><time datetime="2024-05-11T00:00:00-07:00">May 11, 2024</time>
 </header>
 
-  <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
+  <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/net/latest/class_primo_software_1_1_a_v_blocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C#.</p>
 
 <h2 id="diagram">Diagram</h2>
 
 <pre><code class="language-mermaid">flowchart TB
     is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
-    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: output.mp3")
+    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MpegAudio\nSubtype: MpegAudioLayer3\nFile: output.mp3")
     tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
+    out["output.mp3"]
 
     in["input.wav"]
     out["output.mp3"]
@@ -111,49 +112,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <p>This is the code for the output socket:</p>
 
-<pre><code class="language-cpp">primo::ref&lt;MediaSocket&gt; createOutputSocket(Options&amp; opt)
+<pre><code class="language-csharp">static MediaSocket CreateOutputSocket(Options opt)
 {
-    // create stream info to describe the output audio stream
-    auto asi = primo::make_ref(Library::createAudioStreamInfo());
-    asi-&gt;setStreamType(StreamType::MPEG_Audio);
-    asi-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
+    AudioStreamInfo asi = new AudioStreamInfo();
+    asi.StreamType = StreamType.MpegAudio;
+    asi.StreamSubType = StreamSubType.MpegAudioLayer3;
 
     // The default bitrate is 128000. You can set it to 192000, 256000, etc.
-    // asi-&gt;setBitrate(192000);
+    // asi.Bitrate = 192000;
 
-    // Optionally set the sampling rate and the number of the channels, e.g. 44.1 Khz, Mono 
-    // asi-&gt;setSampleRate(44100);
-    // asi-&gt;setChannels(1);
+    // You can change the sampling rate and the number of the channels
+    // asi.SampleRate = 44100;
+    // asi.Channels = 1;
 
-    // create a pin using the stream info 
-    auto pin = primo::make_ref(Library::createMediaPin());
-    pin-&gt;setStreamInfo(asi.get());
+    MediaPin pin = new MediaPin();
+    pin.StreamInfo = asi;
 
-    // the pin allows you to specify additional parameters for the encoder 
-    // for example, change the stereo mode, e.g. Joint Stereo
-    // pin-&gt;params()-&gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);
+    MediaSocket socket = new MediaSocket();
+    socket.StreamType = StreamType.MpegAudio;
+    socket.StreamSubType = StreamSubType.MpegAudioLayer3;
 
-    // finally create a socket for the output container format which is MP3 in this case
-    auto socket = primo::make_ref(Library::createMediaSocket());
-    socket-&gt;setStreamType(StreamType::MPEG_Audio);
-    socket-&gt;setStreamSubType(StreamSubType::MPEG_Audio_Layer3);
-
-    socket-&gt;pins()-&gt;add(pin.get());
+    socket.Pins.Add(pin);
 
     // output to a file
-    auto output_file = primo::ustring(opt.outputFile);
-    socket-&gt;setFile(output_file);
+    socket.File = opt.OutputFile;
 
     return socket;
 }
 </code></pre>
 
-<p>The complete program is available on <a href="https://github.com/avblocks/avblocks-cpp">GitHub</a>:</p>
+<p>The complete program is available on <a href="https://github.com/avblocks/avblocks-net">GitHub</a>:</p>
 
 <ul>
-  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/darwin/enc_mp3_file">enc_mp3_file (macOS)</a></li>
-  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/linux/enc_mp3_file">enc_mp3_file (Linux)</a></li>
-  <li><a href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/windows/enc_mp3_file">enc_mp3_file (Windows)</a></li>
+  <li><a href="https://github.com/avblocks/avblocks-net/tree/main/samples/enc_mp3_file">enc_mp3_file</a></li>
 </ul>
 
 

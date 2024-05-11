@@ -46,15 +46,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+<style>
+    :not([class]) {
+        pre {
+            text-align: center;
+        }
+    }    
+</style>
+
 
 
 <link href="/assets/prism/prism.css" rel="stylesheet" /> 
-<style>
-    code {
-        font-size: 15px !important;
-    }
-</style>
-
 <script src="/assets/prism/prism.js"></script>
 <script>
     // don't highlight mermaid code
@@ -62,6 +64,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return env.language !== 'mermaid';
     });
 </script>
+
+<style>
+    code {
+        font-size: 15px !important;
+    }
+</style>
 
 
 
@@ -80,6 +88,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
   
   <article>
     <header>
+  <h1><a href="/how-to-configure-output-socket-mp3-encoding-net/">How to configure output socket for MP3 encoding in .NET</a></h1><time datetime="2024-05-11T00:00:00-07:00">May 11, 2024</time>
+</header>
+
+    <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/net/latest/class_primo_software_1_1_a_v_blocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C#.</p>
+
+<h2 id="diagram">Diagram</h2>
+
+<pre><code class="language-mermaid">flowchart TB
+    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
+    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MpegAudio\nSubtype: MpegAudioLayer3\nFile: output.mp3")
+    tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
+    out["output.mp3"]
+
+    in["input.wav"]
+    out["output.mp3"]
+
+    is --&gt; |"add input"| tr 
+    os --&gt; |"add output"| tr
+    
+    in  --&gt; |"read"| tr --&gt; |"write"| out
+</code></pre>
+
+
+    <div class="more"><a href="/how-to-configure-output-socket-mp3-encoding-net/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
   <h1><a href="/how-to-configure-output-socket-aac-adts-encoding-cpp/">How to configure output socket for AAC / ADTS encoding in C++</a></h1><time datetime="2024-05-08T00:00:00-07:00">May 08, 2024</time>
 </header>
 
@@ -87,16 +123,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <h2 id="diagram">Diagram</h2>
 
-<pre><code class="language-mermaid">flowchart LR
+<pre><code class="language-mermaid">flowchart TB
     is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
     os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: AAC\nSubtype: AAC_ADTS\nFile: output.aac")
     tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
+
+    in["input.wav"]
     out["output.aac"]
 
-    is --&gt; |"configure\ninputs"| tr 
-    os --&gt; |"configure\noutputs"| tr
-
-    tr --&gt; |"write"| out
+    is --&gt; |"add input"| tr 
+    os --&gt; |"add output"| tr
+    
+    in  --&gt; |"read"| tr --&gt; |"write"| out
 </code></pre>
 
 
@@ -112,16 +150,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <h2 id="diagram">Diagram</h2>
 
-<pre><code class="language-mermaid">flowchart LR
+<pre><code class="language-mermaid">flowchart TB
     is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
     os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: output.mp3")
     tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
+
+    in["input.wav"]
     out["output.mp3"]
 
-    is --&gt; |"configure\ninputs"| tr 
-    os --&gt; |"configure\noutputs"| tr
-
-    tr --&gt; |"write"| out
+    is --&gt; |"add input"| tr 
+    os --&gt; |"add output"| tr
+    
+    in  --&gt; |"read"| tr --&gt; |"write"| out
 </code></pre>
 
 
@@ -203,48 +243,39 @@ It controls the decoded picture buffer size of the decoder and indirectly affect
     <div class="more"><a href="/how-to-set-license-string-in-avblocks/">read more</a></div>
   </article>
 
-  <article>
-    <header>
-  <h1><a href="/avblocks-in-demo-mode/">AVBlocks in demo mode</a></h1><time datetime="2012-10-20T00:00:00-07:00">October 20, 2012</time>
-</header>
-
-    <p>The following restrictions apply when AVBlocks works in demo mode:</p>
-
-<ul>
-  <li>For video streams, a semi-transparent logo is overlaid on top of each video frame.</li>
-  <li>For audio streams, a short audio sample is mixed in the original track at random places.</li>
-</ul>
-
-<p>The demo restrictions are removed when a valid XML license is passed to <code>Library::setLicense</code> API method.</p>
-
-    <div class="more"><a href="/avblocks-in-demo-mode/">read more</a></div>
-  </article>
-
 
 
   <article>
     
     
-    <a href="/tag/tips-and-tricks"><code class="highligher-rouge" style="font-size:15px;"><nobr>tips-and-tricks</nobr></code></a>
+    <a href="/tag/tips-and-tricks"><code class="highligher-rouge" style="font-size:16px;"><nobr>tips-and-tricks</nobr></code></a>
+    <a href="/tag/encoder"><code class="highligher-rouge" style="font-size:13px;"><nobr>encoder</nobr></code></a>
+    <a href="/tag/audio"><code class="highligher-rouge" style="font-size:13px;"><nobr>audio</nobr></code></a>
     <a href="/tag/video"><code class="highligher-rouge" style="font-size:12px;"><nobr>video</nobr></code></a>
     <a href="/tag/news"><code class="highligher-rouge" style="font-size:12px;"><nobr>news</nobr></code></a>
-    <a href="/tag/encoder"><code class="highligher-rouge" style="font-size:12px;"><nobr>encoder</nobr></code></a>
-    <a href="/tag/audio"><code class="highligher-rouge" style="font-size:12px;"><nobr>audio</nobr></code></a>
+    <a href="/tag/mp3"><code class="highligher-rouge" style="font-size:12px;"><nobr>mp3</nobr></code></a>
     <a href="/tag/wmv"><code class="highligher-rouge" style="font-size:11px;"><nobr>wmv</nobr></code></a>
     <a href="/tag/windows"><code class="highligher-rouge" style="font-size:11px;"><nobr>windows</nobr></code></a>
-    <a href="/tag/mp3"><code class="highligher-rouge" style="font-size:11px;"><nobr>mp3</nobr></code></a>
     <a href="/tag/license"><code class="highligher-rouge" style="font-size:11px;"><nobr>license</nobr></code></a>
     <a href="/tag/h.264"><code class="highligher-rouge" style="font-size:11px;"><nobr>h.264</nobr></code></a>
     <a href="/tag/demo"><code class="highligher-rouge" style="font-size:11px;"><nobr>demo</nobr></code></a>
     <a href="/tag/decoder"><code class="highligher-rouge" style="font-size:11px;"><nobr>decoder</nobr></code></a>
+    <a href="/tag/c++"><code class="highligher-rouge" style="font-size:11px;"><nobr>c++</nobr></code></a>
     <a href="/tag/avc"><code class="highligher-rouge" style="font-size:11px;"><nobr>avc</nobr></code></a>
     <a href="/tag/adts"><code class="highligher-rouge" style="font-size:11px;"><nobr>adts</nobr></code></a>
     <a href="/tag/aac"><code class="highligher-rouge" style="font-size:11px;"><nobr>aac</nobr></code></a>
+    <a href="/tag/.net"><code class="highligher-rouge" style="font-size:11px;"><nobr>.net</nobr></code></a>
     
   </article>
   
 
 
+
+  <footer>
+    <span></span>
+    <span>page 1 of 2</span>
+    <a href="/page2">older posts »</a>
+  </footer>
 
 
 

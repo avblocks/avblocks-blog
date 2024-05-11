@@ -46,15 +46,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });    
 </script>
 
+<style>
+    :not([class]) {
+        pre {
+            text-align: center;
+        }
+    }    
+</style>
+
 
 
 <link href="/assets/prism/prism.css" rel="stylesheet" /> 
-<style>
-    code {
-        font-size: 15px !important;
-    }
-</style>
-
 <script src="/assets/prism/prism.js"></script>
 <script>
     // don't highlight mermaid code
@@ -62,6 +64,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return env.language !== 'mermaid';
     });
 </script>
+
+<style>
+    code {
+        font-size: 15px !important;
+    }
+</style>
 
 
 
@@ -85,16 +93,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <h2 id="diagram">Diagram</h2>
 
-<pre><code class="language-mermaid">flowchart LR
+<pre><code class="language-mermaid">flowchart TB
     is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
     os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: AAC\nSubtype: AAC_ADTS\nFile: output.aac")
     tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
+
+    in["input.wav"]
     out["output.aac"]
 
-    is --&gt; |"configure\ninputs"| tr 
-    os --&gt; |"configure\noutputs"| tr
-
-    tr --&gt; |"write"| out
+    is --&gt; |"add input"| tr 
+    os --&gt; |"add output"| tr
+    
+    in  --&gt; |"read"| tr --&gt; |"write"| out
 </code></pre>
 
 <h2 id="code">Code</h2>
