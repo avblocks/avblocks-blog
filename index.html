@@ -1,293 +1,571 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>  
-<title>Blog | AVBlocks™</title>
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Primo Software">
-<meta name="generator" content="Jekyll v4.2.2">
-<link rel="canonical" href="https://blog.avblocks.com/">
 
 
-<link rel="stylesheet" href="/assets/css/frame.css">
+<html lang="en" data-content_root="./" >
 
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Welcome to the AVBlocks™ Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://blog.avblocks.com/" />
+<meta property="og:site_name" content="AVBlocks" />
+<meta property="og:description" content="News, and tips and tricks about the AVBlocks™ SDK from Primo Software. Latest Posts: How to configure output socket for MP3 encoding in .NET- May 11, 2024 Here is a quick snippet for configuring th..." />
+<meta name="description" content="News, and tips and tricks about the AVBlocks™ SDK from Primo Software. Latest Posts: How to configure output socket for MP3 encoding in .NET- May 11, 2024 Here is a quick snippet for configuring th..." />
 
-<link rel="stylesheet" href="/assets/css/classes.css">
+    <title>Welcome to the AVBlocks™ Blog &#8212; AVBlocks™ Blog</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="AVBlocks™">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4e486386" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-
-
-
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGMP2RVMJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9ZGMP2RVMJ');
-</script>
-
-
-
-<script src="https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function(event) { 
-    mermaid.initialize({
-        startOnLoad:true,
-        theme: "default",
-    });
-
-    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-});    
-</script>
-
-<style>
-    :not([class]) {
-        pre {
-            text-align: center;
-        }
-    }    
-</style>
-
-
-
-<link href="/assets/prism/prism.css" rel="stylesheet" /> 
-<script src="/assets/prism/prism.js"></script>
-<script>
-    // don't highlight mermaid code
-    Prism.plugins.filterHighlightAll.add(function (env) {
-        return env.language !== 'mermaid';
-    });
-</script>
-
-<style>
-    code {
-        font-size: 15px !important;
-    }
-</style>
-
-
-
-</head>
-
-
-
-
-<header>
-  <a href="https://avblocks.com" class="title">AVBlocks™</a>
-  <nav><a aria-label="Home" href="https://avblocks.com/" ><span aria-hidden="true">Home</span></a><a aria-label="Blog" href="/" class="selected"><span aria-hidden="true">Blog</span></a><a aria-label="Archive" href="/archive/" ><span aria-hidden="true">Archive</span></a></nav>
-
-</header>
-
+    <script src="_static/documentation_options.js?v=a5603611"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('consent', 'default', {
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied',
+                    'analytics_storage': 'denied'
+                });
+            </script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-9ZGMP2RVMJ"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-9ZGMP2RVMJ');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://blog.avblocks.com/" />
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="search" title="Search" href="search/" />
+    <link rel="next" title="Archive" href="archive/" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+   
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="blog/atom.xml"
+  title="AVBlocks™ Blog"
+/>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
 
   
-  <article>
-    <header>
-  <h1><a href="/how-to-configure-output-socket-mp3-encoding-net/">How to configure output socket for MP3 encoding in .NET</a></h1><time datetime="2024-05-11T00:00:00-07:00">May 11, 2024</time>
-</header>
-
-    <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/net/latest/class_primo_software_1_1_a_v_blocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C#.</p>
-
-<h2 id="diagram">Diagram</h2>
-
-<pre><code class="language-mermaid">flowchart TB
-    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
-    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MpegAudio\nSubtype: MpegAudioLayer3\nFile: output.mp3")
-    tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
-    out["output.mp3"]
-
-    in["input.wav"]
-    out["output.mp3"]
-
-    is --&gt; |"add input"| tr 
-    os --&gt; |"add output"| tr
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
     
-    in  --&gt; |"read"| tr --&gt; |"write"| out
-</code></pre>
+<form class="bd-search d-flex align-items-center"
+      action="search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
 
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
 
-    <div class="more"><a href="/how-to-configure-output-socket-mp3-encoding-net/">read more</a></div>
-  </article>
-
-  <article>
-    <header>
-  <h1><a href="/how-to-configure-output-socket-aac-adts-encoding-cpp/">How to configure output socket for AAC / ADTS encoding in C++</a></h1><time datetime="2024-05-08T00:00:00-07:00">May 08, 2024</time>
-</header>
-
-    <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++.</p>
-
-<h2 id="diagram">Diagram</h2>
-
-<pre><code class="language-mermaid">flowchart TB
-    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
-    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: AAC\nSubtype: AAC_ADTS\nFile: output.aac")
-    tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
-
-    in["input.wav"]
-    out["output.aac"]
-
-    is --&gt; |"add input"| tr 
-    os --&gt; |"add output"| tr
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
-    in  --&gt; |"read"| tr --&gt; |"write"| out
-</code></pre>
+      <div class="navbar-item">
 
-
-    <div class="more"><a href="/how-to-configure-output-socket-aac-adts-encoding-cpp/">read more</a></div>
-  </article>
-
-  <article>
-    <header>
-  <h1><a href="/how-to-configure-output-socket-mp3-encoding-cpp/">How to configure output socket for MP3 encoding in C++</a></h1><time datetime="2024-05-06T00:00:00-07:00">May 06, 2024</time>
-</header>
-
-    <p>Here is a quick snippet for configuring the output socket of a <a href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
-
-<h2 id="diagram">Diagram</h2>
-
-<pre><code class="language-mermaid">flowchart TB
-    is("&lt;b&gt;MediaSocket&lt;/b&gt;\nFile: input.wav")
-    os("&lt;b&gt;MediaSocket&lt;/b&gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: output.mp3")
-    tr("&lt;b&gt;Transcoder Block&lt;/b&gt;\nopen\nrun\nclose")
-
-    in["input.wav"]
-    out["output.mp3"]
-
-    is --&gt; |"add input"| tr 
-    os --&gt; |"add output"| tr
+  
     
-    in  --&gt; |"read"| tr --&gt; |"write"| out
-</code></pre>
-
-
-    <div class="more"><a href="/how-to-configure-output-socket-mp3-encoding-cpp/">read more</a></div>
-  </article>
-
-  <article>
-    <header>
-  <h1><a href="/avblocks-3-whats-new/">AVBlocks v3 - What’s New</a></h1><time datetime="2023-07-05T00:00:00-07:00">July 05, 2023</time>
-</header>
-
-    <h3 id="api">API</h3>
-
-<ul>
-  <li>Remove 32-bit application support (C++ and .NET)</li>
-  <li>C++: Refactor API headers to use lowercase file names and subdirectories for namespaces</li>
-  <li>.NET: New AVBlocks .NET SDK for macOS and Linux (based on .NET Core 6+)</li>
-  <li>Distribute the <a href="https://github.com/avblocks/avblocks-core">AVBlocks Core</a> and <a href="https://github.com/avblocks/avblocks-net-core">AVBlocks .NET Core</a> through GitHub</li>
-</ul>
-
-    <div class="more"><a href="/avblocks-3-whats-new/">read more</a></div>
-  </article>
-
-  <article>
-    <header>
-  <h1><a href="/avblocks-2-whats-new/">AVBlocks v2 - What’s New</a></h1><time datetime="2016-04-16T00:00:00-07:00">April 16, 2016</time>
-</header>
-
-    <h3 id="api">API</h3>
-
-<ul>
-  <li>The MediaInfo object now implements the Block abstract interface.</li>
-</ul>
-
-<h3 id="samples">Samples</h3>
-
-<ul>
-  <li>New <code>overlay_mp4_png_file</code> sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.</li>
-</ul>
-
-    <div class="more"><a href="/avblocks-2-whats-new/">read more</a></div>
-  </article>
-
-  <article>
-    <header>
-  <h1><a href="/controling-h-264-decoding-latency/">Controling H.264 decoding latency</a></h1><time datetime="2013-12-17T00:00:00-08:00">December 17, 2013</time>
-</header>
-
-    <p>There is a new parameter in AVBlocks 1.8 called <a href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code>max_dec_frame_buffering</code> from the AVC / H.264 standard).
-It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.<!--more--></p>
-
-
-    <div class="more"><a href="/controling-h-264-decoding-latency/">read more</a></div>
-  </article>
-
-  <article>
-    <header>
-  <h1><a href="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/">AVBlocks will not load if Wmvcore.dll is not present on user's system</a></h1><time datetime="2013-09-09T00:00:00-07:00">September 09, 2013</time>
-</header>
-
-    <blockquote>
-  <p>Update: This issue has been fixed as of version 1.6.</p>
-</blockquote>
-
-<p>Wmvcore.dll is standard on all editions of Windows Vista and Windows 7 with the exception of the “N” editions. The “N” editions are distributed in Europe and do not include Windows Media Player and its related technologies.</p>
-
-    <div class="more"><a href="/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/">read more</a></div>
-  </article>
-
-  <article>
-    <header>
-  <h1><a href="/how-to-set-license-string-in-avblocks/">How to set license string in AVBlocks</a></h1><time datetime="2013-05-29T00:00:00-07:00">May 29, 2013</time>
-</header>
-
-    <p>This post assumes that you are using AVBlocks for .NET and you have purchased a license from the <a href="https://lm.primosoftware.com" title="License Managerment">License Management</a> site.</p>
-
-<p>When you license a Primo Software product you usually get a license file in the email. The license file is basically a signed XML string that describes the products and features you have licensed. Then you have to provide the license to AVBlocks with the Library.SetLicense method.</p>
-
-    <div class="more"><a href="/how-to-set-license-string-in-avblocks/">read more</a></div>
-  </article>
-
-
-
-  <article>
-    
-    
-    <a href="/tag/tips-and-tricks"><code class="highligher-rouge" style="font-size:16px;"><nobr>tips-and-tricks</nobr></code></a>
-    <a href="/tag/encoder"><code class="highligher-rouge" style="font-size:13px;"><nobr>encoder</nobr></code></a>
-    <a href="/tag/audio"><code class="highligher-rouge" style="font-size:13px;"><nobr>audio</nobr></code></a>
-    <a href="/tag/video"><code class="highligher-rouge" style="font-size:12px;"><nobr>video</nobr></code></a>
-    <a href="/tag/news"><code class="highligher-rouge" style="font-size:12px;"><nobr>news</nobr></code></a>
-    <a href="/tag/mp3"><code class="highligher-rouge" style="font-size:12px;"><nobr>mp3</nobr></code></a>
-    <a href="/tag/wmv"><code class="highligher-rouge" style="font-size:11px;"><nobr>wmv</nobr></code></a>
-    <a href="/tag/windows"><code class="highligher-rouge" style="font-size:11px;"><nobr>windows</nobr></code></a>
-    <a href="/tag/license"><code class="highligher-rouge" style="font-size:11px;"><nobr>license</nobr></code></a>
-    <a href="/tag/h.264"><code class="highligher-rouge" style="font-size:11px;"><nobr>h.264</nobr></code></a>
-    <a href="/tag/demo"><code class="highligher-rouge" style="font-size:11px;"><nobr>demo</nobr></code></a>
-    <a href="/tag/decoder"><code class="highligher-rouge" style="font-size:11px;"><nobr>decoder</nobr></code></a>
-    <a href="/tag/c++"><code class="highligher-rouge" style="font-size:11px;"><nobr>c++</nobr></code></a>
-    <a href="/tag/avc"><code class="highligher-rouge" style="font-size:11px;"><nobr>avc</nobr></code></a>
-    <a href="/tag/adts"><code class="highligher-rouge" style="font-size:11px;"><nobr>adts</nobr></code></a>
-    <a href="/tag/aac"><code class="highligher-rouge" style="font-size:11px;"><nobr>aac</nobr></code></a>
-    <a href="/tag/.net"><code class="highligher-rouge" style="font-size:11px;"><nobr>.net</nobr></code></a>
-    
-  </article>
   
 
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo_blue.svg" class="logo__image only-light" alt=""/>
+    <img src="_static/logo_blue.svg" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">AVBlocks™ Blog</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="archive/">
+    Archive
+  </a>
+</li>
 
 
-  <footer>
-    <span></span>
-    <span>page 1 of 2</span>
-    <a href="/page2">older posts »</a>
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-py">
+    Python
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-net">
+    .NET
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-plus">
+    Fluent C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-cpp">
+    Core C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks">
+    GitHub
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="mailto:sales@avblocks.com" title="Mail" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i><span class="visually-hidden">Mail</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://blog.avblocks.com/feed.xml" title="RSS" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-rss fa-lg" aria-hidden="true"></i><span class="visually-hidden">RSS</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="archive/">
+    Archive
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-py">
+    Python
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-net">
+    .NET
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-plus">
+    Fluent C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks/avblocks-cpp">
+    Core C++
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/avblocks">
+    GitHub
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="mailto:sales@avblocks.com" title="Mail" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i><span class="visually-hidden">Mail</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://blog.avblocks.com/feed.xml" title="RSS" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-rss fa-lg" aria-hidden="true"></i><span class="visually-hidden">RSS</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section id="welcome-to-the-avblocks-blog">
+<h1>Welcome to the AVBlocks™ Blog<a class="headerlink" href="#welcome-to-the-avblocks-blog" title="Link to this heading">#</a></h1>
+<p>News, and tips and tricks about the AVBlocks™ SDK from <a class="reference external" href="https://primosoftware.com">Primo Software</a>.</p>
+<section id="latest-posts">
+<h2>Latest Posts<a class="headerlink" href="#latest-posts" title="Link to this heading">#</a></h2>
+<ul class="postlist-style-none postlist">
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="how-to-configure-output-socket-mp3-encoding-net/">How to configure output socket for MP3 encoding in .NET</a> - May 11, 2024</p>
+<p class="ablog-post-excerpt">Here is a quick snippet for configuring the output socket of a <a class="reference external" href="https://doc.avblocks.com/net/latest/class_primo_software_1_1_a_v_blocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C#.</p>
+</li>
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="how-to-configure-output-socket-aac-adts-encoding-cpp/">How to configure output socket for AAC / ADTS encoding in C++</a> - May 08, 2024</p>
+<p class="ablog-post-excerpt">Here is a quick snippet for configuring the output socket of a <a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++.</p>
+</li>
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="how-to-configure-output-socket-mp3-encoding-cpp/">How to configure output socket for MP3 encoding in C++</a> - May 06, 2024</p>
+<p class="ablog-post-excerpt">Here is a quick snippet for configuring the output socket of a <a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html">Transcoder</a> for MP3 encoding using C++.</p>
+</li>
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="avblocks-3-whats-new/">AVBlocks v3 - What’s New</a> - July 05, 2023</p>
+<p class="ablog-post-excerpt">Remove 32-bit application support (C++ and .NET)</p>
+</li>
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="avblocks-2-whats-new/">AVBlocks v2 - What’s New</a> - April 16, 2016</p>
+<p class="ablog-post-excerpt">The MediaInfo object now implements the Block abstract interface.</p>
+</li>
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="controling-h-264-decoding-latency/">Controling H.264 decoding latency</a> - December 17, 2013</p>
+<p class="ablog-post-excerpt">There is a new parameter in AVBlocks 1.8 called <a class="reference external" href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details">MaxDecFrameBuffering</a> (corresponding to <code class="docutils literal notranslate"><span class="pre">max_dec_frame_buffering</span></code> from the AVC / H.264 standard).
+It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.</p>
+</li>
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/">AVBlocks will not load if Wmvcore.dll is not present on user’s system</a> - September 09, 2013</p>
+<p class="ablog-post-excerpt">Update: This issue has been fixed as of version 1.6.</p>
+</li>
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="how-to-set-license-string-in-avblocks/">How to set license string in AVBlocks</a> - May 29, 2013</p>
+<p class="ablog-post-excerpt">This post assumes that you are using AVBlocks for .NET and you have purchased a license from the <a class="reference external" href="https://lm.primosoftware.com" title="License Managerment">License Management</a> site.</p>
+</li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="archive/"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Archive</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-posts">Latest Posts</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2003 - 2026, Primo Software Corp..
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
   </footer>
-
-
-
-
-
-
-
-<footer>
-  <div>&copy; Primo Software</div>
-  <nav><a aria-label="Mail" href="mailto:sales@avblocks.com" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a aria-label="Github" href="https://github.com/avblocks" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a aria-label="Subscribe" href="/feed.xml" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
-
-</footer>
-
-
+  </body>
 </html>

@@ -1,0 +1,6 @@
+/* no underline on header links */
+.bd-header a,
+.bd-header a:hover,
+.bd-header a:focus {
+  text-decoration: none;
+}

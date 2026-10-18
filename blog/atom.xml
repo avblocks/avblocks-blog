@@ -1,0 +1,492 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>https://blog.avblocks.com/</id>
+  <title>AVBlocks™ Blog</title>
+  <updated>2026-10-18T21:26:41.664187+00:00</updated>
+  <link href="https://blog.avblocks.com/"/>
+  <link href="https://blog.avblocks.com/blog/atom.xml" rel="self"/>
+  <generator uri="https://ablog.readthedocs.io/" version="0.11.13">ABlog</generator>
+  <entry>
+    <id>https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-net/</id>
+    <title>How to configure output socket for MP3 encoding in .NET</title>
+    <updated>2024-05-11T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="how-to-configure-output-socket-for-mp3-encoding-in-net"&gt;
+
+&lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/net/latest/class_primo_software_1_1_a_v_blocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for MP3 encoding using C#.&lt;/p&gt;
+&lt;section id="diagram"&gt;
+&lt;h2&gt;Diagram&lt;/h2&gt;
+&lt;pre  class="mermaid"&gt;
+        flowchart TB
+    is(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nFile: input.wav&amp;quot;)
+    os(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nType: MpegAudio\nSubtype: MpegAudioLayer3\nFile: output.mp3&amp;quot;)
+    tr(&amp;quot;&amp;lt;b&amp;gt;Transcoder Block&amp;lt;/b&amp;gt;\nopen\nrun\nclose&amp;quot;)
+    out[&amp;quot;output.mp3&amp;quot;]
+
+    in[&amp;quot;input.wav&amp;quot;]
+    out[&amp;quot;output.mp3&amp;quot;]
+
+    is --&amp;gt; |&amp;quot;add input&amp;quot;| tr 
+    os --&amp;gt; |&amp;quot;add output&amp;quot;| tr
+    
+    in  --&amp;gt; |&amp;quot;read&amp;quot;| tr --&amp;gt; |&amp;quot;write&amp;quot;| out
+    &lt;/pre&gt;&lt;/section&gt;
+&lt;section id="code"&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;This is the code for the output socket:&lt;/p&gt;
+&lt;div class="highlight-csharp notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;static&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;MediaSocket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;CreateOutputSocket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Options&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;AudioStreamInfo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;AudioStreamInfo&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;MpegAudio&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;MpegAudioLayer3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// The default bitrate is 128000. You can set it to 192000, 256000, etc.&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi.Bitrate = 192000;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// You can change the sampling rate and the number of the channels&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi.SampleRate = 44100;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi.Channels = 1;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;MediaPin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;MediaPin&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StreamInfo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;MediaSocket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;MediaSocket&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;MpegAudio&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;MpegAudioLayer3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Pins&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// output to a file&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;File&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OutputFile&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The complete program is available on &lt;a class="reference external" href="https://github.com/avblocks/avblocks-net"&gt;GitHub&lt;/a&gt;:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-net/tree/main/samples/enc_mp3_file"&gt;enc_mp3_file&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-net/"/>
+    <summary>Here is a quick snippet for configuring the output socket of a Transcoder for MP3 encoding using C#.</summary>
+    <category term=".net" label=".net"/>
+    <category term="audio" label="audio"/>
+    <category term="encoder" label="encoder"/>
+    <category term="mp3" label="mp3"/>
+    <category term="tips-and-tricks" label="tips-and-tricks"/>
+    <published>2024-05-11T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/how-to-configure-output-socket-aac-adts-encoding-cpp/</id>
+    <title>How to configure output socket for AAC / ADTS encoding in C++</title>
+    <updated>2024-05-08T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="how-to-configure-output-socket-for-aac-adts-encoding-in-c"&gt;
+
+&lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++.&lt;/p&gt;
+&lt;section id="diagram"&gt;
+&lt;h2&gt;Diagram&lt;/h2&gt;
+&lt;pre  class="mermaid"&gt;
+        flowchart TB
+    is(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nFile: input.wav&amp;quot;)
+    os(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nType: AAC\nSubtype: AAC_ADTS\nFile: output.aac&amp;quot;)
+    tr(&amp;quot;&amp;lt;b&amp;gt;Transcoder Block&amp;lt;/b&amp;gt;\nopen\nrun\nclose&amp;quot;)
+
+    in[&amp;quot;input.wav&amp;quot;]
+    out[&amp;quot;output.aac&amp;quot;]
+
+    is --&amp;gt; |&amp;quot;add input&amp;quot;| tr 
+    os --&amp;gt; |&amp;quot;add output&amp;quot;| tr
+    
+    in  --&amp;gt; |&amp;quot;read&amp;quot;| tr --&amp;gt; |&amp;quot;write&amp;quot;| out
+    &lt;/pre&gt;&lt;/section&gt;
+&lt;section id="code"&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;This is the code for the output socket:&lt;/p&gt;
+&lt;div class="highlight-cpp notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;ref&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;MediaSocket&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;createOutputSocket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Options&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// create stream info to describe the output audio stream&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createAudioStreamInfo&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio_Layer3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// The default bitrate is 128000. You can set it to 192000, 256000, etc.&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setBitrate(192000);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// Optionally set the sampling rate and the number of the channels, e.g. 44.1 Khz, Mono &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setSampleRate(44100);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setChannels(1);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// create a pin using the stream info &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createMediaPin&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamInfo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// the pin allows you to specify additional parameters for the encoder &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// for example, change the stereo mode, e.g. Joint Stereo&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// pin-&amp;gt;params()-&amp;gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// finally create a socket for the output container format which is MP3 in this case&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createMediaSocket&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio_Layer3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;pins&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// output to a file&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;ustring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;outputFile&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The complete program is available on &lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp"&gt;GitHub&lt;/a&gt;:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/darwin/enc_aac_adts_file"&gt;enc_aac_adts_file (macOS)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/linux/enc_aac_adts_file"&gt;enc_aac_adts_file (Linux)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/windows/enc_aac_adts_file"&gt;enc_aac_adts_file (Windows)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/how-to-configure-output-socket-aac-adts-encoding-cpp/"/>
+    <summary>Here is a quick snippet for configuring the output socket of a Transcoder for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++.</summary>
+    <category term="aac" label="aac"/>
+    <category term="adts" label="adts"/>
+    <category term="audio" label="audio"/>
+    <category term="encoder" label="encoder"/>
+    <category term="tips-and-tricks" label="tips-and-tricks"/>
+    <published>2024-05-08T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/</id>
+    <title>How to configure output socket for MP3 encoding in C++</title>
+    <updated>2024-05-06T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="how-to-configure-output-socket-for-mp3-encoding-in-c"&gt;
+
+&lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for MP3 encoding using C++.&lt;/p&gt;
+&lt;section id="diagram"&gt;
+&lt;h2&gt;Diagram&lt;/h2&gt;
+&lt;pre  class="mermaid"&gt;
+        flowchart TB
+    is(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nFile: input.wav&amp;quot;)
+    os(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: output.mp3&amp;quot;)
+    tr(&amp;quot;&amp;lt;b&amp;gt;Transcoder Block&amp;lt;/b&amp;gt;\nopen\nrun\nclose&amp;quot;)
+
+    in[&amp;quot;input.wav&amp;quot;]
+    out[&amp;quot;output.mp3&amp;quot;]
+
+    is --&amp;gt; |&amp;quot;add input&amp;quot;| tr 
+    os --&amp;gt; |&amp;quot;add output&amp;quot;| tr
+    
+    in  --&amp;gt; |&amp;quot;read&amp;quot;| tr --&amp;gt; |&amp;quot;write&amp;quot;| out
+    &lt;/pre&gt;&lt;/section&gt;
+&lt;section id="code"&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;This is the code for the output socket:&lt;/p&gt;
+&lt;div class="highlight-cpp notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;ref&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;MediaSocket&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;createOutputSocket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Options&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// create stream info to describe the output audio stream&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createAudioStreamInfo&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio_Layer3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// The default bitrate is 128000. You can set it to 192000, 256000, etc.&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setBitrate(192000);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// Optionally set the sampling rate and the number of the channels, e.g. 44.1 Khz, Mono &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setSampleRate(44100);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setChannels(1);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// create a pin using the stream info &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createMediaPin&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamInfo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// the pin allows you to specify additional parameters for the encoder &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// for example, change the stereo mode, e.g. Joint Stereo&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// pin-&amp;gt;params()-&amp;gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// finally create a socket for the output container format which is MP3 in this case&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createMediaSocket&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio_Layer3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;pins&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// output to a file&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;ustring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;outputFile&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The complete program is available on &lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp"&gt;GitHub&lt;/a&gt;:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/darwin/enc_mp3_file"&gt;enc_mp3_file (macOS)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/linux/enc_mp3_file"&gt;enc_mp3_file (Linux)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp/blob/main/samples/windows/enc_mp3_file"&gt;enc_mp3_file (Windows)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-cpp/"/>
+    <summary>Here is a quick snippet for configuring the output socket of a Transcoder for MP3 encoding using C++.</summary>
+    <category term="audio" label="audio"/>
+    <category term="c++" label="c++"/>
+    <category term="encoder" label="encoder"/>
+    <category term="mp3" label="mp3"/>
+    <category term="tips-and-tricks" label="tips-and-tricks"/>
+    <published>2024-05-06T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/avblocks-3-whats-new/</id>
+    <title>AVBlocks v3 - What’s New</title>
+    <updated>2023-07-05T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="avblocks-v3-whats-new"&gt;
+
+&lt;section id="api"&gt;
+&lt;h2&gt;API&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Remove 32-bit application support (C++ and .NET)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;C++: Refactor API headers to use lowercase file names and subdirectories for namespaces&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;.NET: New AVBlocks .NET SDK for macOS and Linux (based on .NET Core 6+)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distribute the &lt;a class="reference external" href="https://github.com/avblocks/avblocks-core"&gt;AVBlocks Core&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/avblocks/avblocks-net-core"&gt;AVBlocks .NET Core&lt;/a&gt; through GitHub&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="samples"&gt;
+&lt;h2&gt;Samples&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Use cmake and Visual Studio Code for AVBlocks samples&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;GitHub repositories for AVBlocks samples&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;C++: Add &lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp/tree/main/samples/windows/enc_preset_file"&gt;enc_preset_file&lt;/a&gt; sample&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;.NET: Add &lt;a class="reference external" href="https://github.com/avblocks/avblocks-net/tree/main/samples/enc_preset_file"&gt;enc_preset_file&lt;/a&gt; sample&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="docs"&gt;
+&lt;h2&gt;Docs&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Split the wiki to separate &lt;a class="reference external" href="https://wiki.avblocks.com/"&gt;C++&lt;/a&gt; and &lt;a class="reference external" href="https://wiki-net.avblocks.com/"&gt;.NET&lt;/a&gt; sites&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/avblocks-3-whats-new/"/>
+    <summary>Remove 32-bit application support (C++ and .NET)</summary>
+    <category term="news" label="news"/>
+    <published>2023-07-05T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/avblocks-2-whats-new/</id>
+    <title>AVBlocks v2 - What’s New</title>
+    <updated>2016-04-16T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="avblocks-v2-whats-new"&gt;
+
+&lt;section id="api"&gt;
+&lt;h2&gt;API&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;The MediaInfo object now implements the Block abstract interface.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="samples"&gt;
+&lt;h2&gt;Samples&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;New &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;overlay_mp4_png_file&lt;/span&gt;&lt;/code&gt; sample. This sample shows how to place a watermark on a video file by blending a video file with a PNG image.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/avblocks-2-whats-new/"/>
+    <summary>The MediaInfo object now implements the Block abstract interface.</summary>
+    <category term="news" label="news"/>
+    <published>2016-04-16T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/controling-h-264-decoding-latency/</id>
+    <title>Controling H.264 decoding latency</title>
+    <updated>2013-12-17T00:00:00-08:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="controling-h-264-decoding-latency"&gt;
+
+&lt;p&gt;There is a new parameter in AVBlocks 1.8 called &lt;a class="reference external" href="http://doc.avblocks.com/cpp/latest/namespaceprimo_1_1avblocks_1_1_param_1_1_decoder_1_1_video_1_1_h264_1_1_v_u_i.html#details"&gt;MaxDecFrameBuffering&lt;/a&gt; (corresponding to &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;max_dec_frame_buffering&lt;/span&gt;&lt;/code&gt; from the AVC / H.264 standard).
+It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.&lt;/p&gt;
+&lt;p&gt;Here are some key notes about using this parameter:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;It must be set to the output pin (see the sample code below)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The supported values are 0 and 1. A negative value is ignored.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;MaxDecFrameBuffering(0) achieves decoding latency of 0 frames for progressive streams and 1 frame for interlaced streams.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;MaxDecFrameBuffering(1) achieves decoding latency of 1 frame both for progressive and interlaced streams.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If the stream has B-frames (or more precisely the total number of reference frames is greater than 1) the decoding will still succeed, but decoding latency will be greater than the required one, as a safety guard.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;With MaxDecFrameBuffering (0|1) only one decoding thread is used, so it hurts performance and it must be used only when low decoding latency is the primary goal.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The following code can be used to set the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;MaxDecFrameBuffering&lt;/span&gt;&lt;/code&gt; parameter to an output pin:&lt;/p&gt;
+&lt;div class="highlight-cpp notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;setH264DecodingLatency&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;avblocks&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MediaPin&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int32_t&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;desiredLatency&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;using&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;namespace&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nn"&gt;avblocks&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;using&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;namespace&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nn"&gt;avblocks&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nn"&gt;Param&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;ParameterList&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;params&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createParameterList&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;IntParameter&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;maxDecFrameBuffering&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createIntParameter&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;maxDecFrameBuffering&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Decoder&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Video&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;H264&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;VUI&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MaxDecFrameBuffering&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;maxDecFrameBuffering&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;desiredLatency&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;maxDecFrameBuffering&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;maxDecFrameBuffering&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;release&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setParams&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;release&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/controling-h-264-decoding-latency/"/>
+    <summary>There is a new parameter in AVBlocks 1.8 called MaxDecFrameBuffering (corresponding to max_dec_frame_buffering from the AVC / H.264 standard).
+It controls the decoded picture buffer size of the decoder and indirectly affects the decoding latency.</summary>
+    <category term="avc" label="avc"/>
+    <category term="decoder" label="decoder"/>
+    <category term="h.264" label="h.264"/>
+    <category term="tips-and-tricks" label="tips-and-tricks"/>
+    <category term="video" label="video"/>
+    <published>2013-12-17T00:00:00-08:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/</id>
+    <title>AVBlocks will not load if Wmvcore.dll is not present on user’s system</title>
+    <updated>2013-09-09T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-user-s-system"&gt;
+
+&lt;blockquote&gt;
+&lt;div&gt;&lt;p&gt;Update: This issue has been fixed as of version 1.6.&lt;/p&gt;
+&lt;/div&gt;&lt;/blockquote&gt;
+&lt;p&gt;Wmvcore.dll is standard on all editions of Windows Vista and Windows 7 with the exception of the “N” editions. The “N” editions are distributed in Europe and do not include Windows Media Player and its related technologies.&lt;/p&gt;
+&lt;p&gt;The following versions of Windows Vista or Window 7 are affected:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Windows 7 Starter N&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Windows 7 Home Premium N&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Windows 7 Professional N&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Windows 7 Ultimate N&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Windows Vista Home Basic N&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Windows Vista Business N&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Windows Vista Home Basic KN&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Windows Vista Business KN&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;AVBlocks depends on the following Wmvcore.dll functions for ASF muxing and demuxing:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;WMCreateProfileManager&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;WMCreateSyncReader&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;WMCreateWriter&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We are fixing this issue by changing the code to load Wmvcore.dll on-demand. This fix will be available in AVBlocks 1.6.&lt;/p&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/avblocks-will-not-load-if-wmvcore-dll-is-not-present-on-users-system/"/>
+    <summary>Update: This issue has been fixed as of version 1.6.</summary>
+    <category term="tips-and-tricks" label="tips-and-tricks"/>
+    <category term="video" label="video"/>
+    <category term="windows" label="windows"/>
+    <category term="wmv" label="wmv"/>
+    <published>2013-09-09T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/how-to-set-license-string-in-avblocks/</id>
+    <title>How to set license string in AVBlocks</title>
+    <updated>2013-05-29T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="how-to-set-license-string-in-avblocks"&gt;
+
+&lt;p&gt;This post assumes that you are using AVBlocks for .NET and you have purchased a license from the &lt;a class="reference external" href="https://lm.primosoftware.com" title="License Managerment"&gt;License Management&lt;/a&gt; site.&lt;/p&gt;
+&lt;p&gt;When you license a Primo Software product you usually get a license file in the email. The license file is basically a signed XML string that describes the products and features you have licensed. Then you have to provide the license to AVBlocks with the Library.SetLicense method.&lt;/p&gt;
+&lt;p&gt;Here is a code snippet in C#:&lt;/p&gt;
+&lt;div class="highlight-csharp notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;license&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s"&gt;@"&amp;lt;primoSoftware&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;      &amp;lt;license version='1.0'&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;token&amp;gt;abcdefghijklmnop&amp;lt;/token&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;revision&amp;gt;1&amp;lt;/revision&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;issueDate&amp;gt;2013-05-23&amp;lt;/issueDate&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;expireDate&amp;gt;2014-05-24&amp;lt;/expireDate&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;updateTime&amp;gt;2013-05-23 21:02:44&amp;lt;/updateTime&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;item id='avb-win'&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;          &amp;lt;product&amp;gt;avb&amp;lt;/product&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;          &amp;lt;feature id='h264-enc' /&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;          &amp;lt;feature id='pcm' /&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;/item&amp;gt;    &lt;/span&gt;
+&lt;span class="s"&gt;    	&amp;lt;signature&amp;gt;abcd-long-signature-string-here&amp;lt;/signature&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;      &amp;lt;/license&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;    &amp;lt;/primoSoftware&amp;gt;"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;
+&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SetLicense&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;license&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The license above is for AVBlocks for Windows (&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;avb-win&lt;/span&gt;&lt;/code&gt;) and includes the AVC / H.264 Encoder (&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;h264-enc&lt;/span&gt;&lt;/code&gt;) and PCM Audio (&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;pcm&lt;/span&gt;&lt;/code&gt;) features.&lt;/p&gt;
+&lt;p&gt;Then the following calls should return true for the license above:&lt;/p&gt;
+&lt;div class="highlight-csharp notranslate"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsLicensed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsLicensed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"h264-enc"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsLicensed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"pcm"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsLicensed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"avb"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"h264-enc"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsLicensed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"avb"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"pcm"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;NOTES:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;&lt;p&gt;Calling &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;Library.SetLicense&lt;/span&gt;&lt;/code&gt; on any of the AVBlocks Demo libraries will fail. The Demo version cannot be licensed. If you downloaded AVBlocks from &lt;a class="reference external" href="https://avblocks.com/download/" title="www.avblocks.com"&gt;www.avblocks.com&lt;/a&gt; then you have the Demo product. You need to get your AVBlocks copy from the Downloads section of the &lt;a class="reference external" href="https://lm.primosoftware.com"&gt;License Manager&lt;/a&gt; site.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You should be careful when formatting the license XML as it may become invalid.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here are the rules:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;It’s OK to reformat the blank space between the xml elements in the license (spaces, new lines) the way you wish.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It’s also OK to substitute the double quotes with single quotes (as shown in the example above), otherwise you need to escape the double quotes.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It’s NOT OK to reorder elements or change the letter case.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/how-to-set-license-string-in-avblocks/"/>
+    <summary>This post assumes that you are using AVBlocks for .NET and you have purchased a license from the License Management site.</summary>
+    <category term="license" label="license"/>
+    <category term="tips-and-tricks" label="tips-and-tricks"/>
+    <published>2013-05-29T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/avblocks-in-demo-mode/</id>
+    <title>AVBlocks in demo mode</title>
+    <updated>2012-10-20T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="avblocks-in-demo-mode"&gt;
+
+&lt;p&gt;The following restrictions apply when AVBlocks works in demo mode:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;For video streams, a semi-transparent logo is overlaid on top of each video frame.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For audio streams, a short audio sample is mixed in the original track at random places.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The demo restrictions are removed when a valid XML license is passed to &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;Library::setLicense&lt;/span&gt;&lt;/code&gt; API method.&lt;/p&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/avblocks-in-demo-mode/"/>
+    <summary>The following restrictions apply when AVBlocks works in demo mode:</summary>
+    <category term="demo" label="demo"/>
+    <published>2012-10-20T00:00:00-07:00</published>
+  </entry>
+</feed>
