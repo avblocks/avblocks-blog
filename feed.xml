@@ -2,10 +2,157 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://blog.avblocks.com/</id>
   <title>AVBlocks™ Blog</title>
-  <updated>2026-10-18T21:47:43.141730+00:00</updated>
+  <updated>2026-10-18T22:06:41.244690+00:00</updated>
   <link href="https://blog.avblocks.com/"/>
   <link href="https://blog.avblocks.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.13">ABlog</generator>
+  <entry>
+    <id>https://blog.avblocks.com/avblocks-3-4-whats-new/</id>
+    <title>AVBlocks v3.4 - What’s New</title>
+    <updated>2026-09-30T00:00:00-07:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="avblocks-v3-4-whats-new"&gt;
+
+&lt;p&gt;AVBlocks 3.4 runs natively on arm64, adds HEVC / H.265 AU stream support, and introduces two new ways to use AVBlocks: &lt;a class="reference external" href="https://github.com/avblocks/avblocks-plus"&gt;AVBlocks Plus&lt;/a&gt;, a fluent C++ API, and &lt;a class="reference external" href="https://github.com/avblocks/avblocks-py"&gt;AVBlocks for Python&lt;/a&gt;.&lt;/p&gt;
+&lt;section id="platforms"&gt;
+&lt;h2&gt;Platforms&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;arm64 support for AVBlocks C++ and AVBlocks .NET on Windows, macOS (Apple Silicon) and Ubuntu Linux&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The C++ and .NET samples build for both x64 and arm64 (&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;bin/&amp;lt;arch&amp;gt;/net10.0&lt;/span&gt;&lt;/code&gt; for .NET)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;download-sdk-and-assets&lt;/span&gt;&lt;/code&gt; scripts in the sample repositories pick the SDK that matches the host architecture&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="api"&gt;
+&lt;h2&gt;API&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;AVBlocks Plus&lt;/strong&gt;: a modern C++ fluent API on top of the AVBlocks core library. See the &lt;a class="reference external" href="https://wiki-plus.avblocks.com/"&gt;wiki&lt;/a&gt; and the &lt;a class="reference external" href="https://doc.avblocks.com/plus/latest/"&gt;API docs&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;AVBlocks for Python&lt;/strong&gt;: Python bindings (the &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;avblocks&lt;/span&gt;&lt;/code&gt; package) for Python 3.12 or higher, on x64 and arm64 for Windows, macOS and Linux. See the &lt;a class="reference external" href="https://wiki-py.avblocks.com/"&gt;wiki&lt;/a&gt; and the &lt;a class="reference external" href="https://doc.avblocks.com/python/latest/"&gt;API docs&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;HEVC / H.265: decode and encode AU streams&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;MP4: demux H.265 streams from an MP4 container&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="samples"&gt;
+&lt;h2&gt;Samples&lt;/h2&gt;
+&lt;p&gt;C++ and .NET:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;HEVC / H.265: &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_hevc_file&lt;/span&gt;&lt;/code&gt;, &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dec_hevc_file&lt;/span&gt;&lt;/code&gt;, &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dec_hevc_au&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dump_hevc_au&lt;/span&gt;&lt;/code&gt; (and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_hevc_pull&lt;/span&gt;&lt;/code&gt; for C++)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;VP8: &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_vp8_file&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dec_vp8_file&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;VP9: &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_vp9_file&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dec_vp9_file&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Vorbis: &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_vorbis_file&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dec_vorbis_file&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Opus: &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_opus_file&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;dec_opus_file&lt;/span&gt;&lt;/code&gt; (and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_opus_pull&lt;/span&gt;&lt;/code&gt; for C++)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;WebM: &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;demux_webm_file&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;mux_webm_file&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C++ only:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;mux_mp4_fs_file&lt;/span&gt;&lt;/code&gt;: mux an MP4 file with the FastStart option&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;.NET only:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;enc_avc_push&lt;/span&gt;&lt;/code&gt;: encode a YUV file to H.264 with &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;Transcoder.Push&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;simple_converter&lt;/span&gt;&lt;/code&gt;: transcode H.264 video to H.265&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;simple_audio_upsample&lt;/span&gt;&lt;/code&gt;, &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;simple_video_crop&lt;/span&gt;&lt;/code&gt;, &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;simple_video_pad&lt;/span&gt;&lt;/code&gt;, &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;simple_video_upscale&lt;/span&gt;&lt;/code&gt; and &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;simple_video_framerate&lt;/span&gt;&lt;/code&gt;: common audio and video conversions&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Python:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Samples for audio and video encoding and decoding, muxing and demuxing, media information and video processing&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="docs"&gt;
+&lt;h2&gt;Docs&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;New wikis for &lt;a class="reference external" href="https://wiki-plus.avblocks.com/"&gt;AVBlocks Plus&lt;/a&gt; and &lt;a class="reference external" href="https://wiki-py.avblocks.com/"&gt;AVBlocks for Python&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;New API docs for &lt;a class="reference external" href="https://doc.avblocks.com/plus/latest/"&gt;AVBlocks Plus&lt;/a&gt; and &lt;a class="reference external" href="https://doc.avblocks.com/python/latest/"&gt;AVBlocks for Python&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a class="reference external" href="https://wiki-net.avblocks.com/"&gt;.NET wiki&lt;/a&gt; is updated for arm64, with new installation and setup instructions for Windows, macOS and Linux&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="fixes"&gt;
+&lt;h2&gt;Fixes&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;TIFF images could not be read on Ubuntu 26.04&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;VP8 / VP9: the picture type is now set from the key frame status&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="get-it"&gt;
+&lt;h2&gt;Get it&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-core"&gt;AVBlocks Core&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/avblocks/avblocks-net-core"&gt;AVBlocks .NET Core&lt;/a&gt; 3.4 demo releases&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Samples: &lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp"&gt;C++&lt;/a&gt;, &lt;a class="reference external" href="https://github.com/avblocks/avblocks-net"&gt;.NET&lt;/a&gt;, &lt;a class="reference external" href="https://github.com/avblocks/avblocks-plus"&gt;Fluent C++&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/avblocks/avblocks-py"&gt;Python&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See the &lt;a class="reference external" href="https://wiki.avblocks.com/release-notes/"&gt;release notes&lt;/a&gt; for the complete list of changes.&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/avblocks-3-4-whats-new/"/>
+    <summary>AVBlocks 3.4 runs natively on arm64, adds HEVC / H.265 AU stream support, and introduces two new ways to use AVBlocks: AVBlocks Plus, a fluent C++ API, and AVBlocks for Python.</summary>
+    <category term="news" label="news"/>
+    <published>2026-09-30T00:00:00-07:00</published>
+  </entry>
+  <entry>
+    <id>https://blog.avblocks.com/avblocks-3-3-whats-new/</id>
+    <title>AVBlocks v3.3 - What’s New</title>
+    <updated>2026-01-21T00:00:00-08:00</updated>
+    <author>
+      <name>Primo Software</name>
+    </author>
+    <content type="html">&lt;section id="avblocks-v3-3-whats-new"&gt;
+
+&lt;p&gt;AVBlocks 3.3 adds VP9 video and Opus audio, brings both into the WebM container, and adds support for .NET 10.&lt;/p&gt;
+&lt;section id="codecs-and-containers"&gt;
+&lt;h2&gt;Codecs and containers&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;VP9: video encoding and decoding&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Opus: audio encoding and decoding&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;WebM: mux and demux VP9 video&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;WebM: mux and demux Opus audio&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Ogg: mux Opus audio&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;IVF: read and write VP8 / VP9 video in the Duck IVF container&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="api"&gt;
+&lt;h2&gt;API&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;.NET: support for .NET 10 (LTS) on Windows, macOS and Linux&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Improved stream reading efficiency: input streams are now read 2048 bytes at a time&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="samples"&gt;
+&lt;h2&gt;Samples&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;.NET: the .NET samples now include all samples from the C++ SDK&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;.NET: the samples target .NET 10&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;C++: updated instructions for Ubuntu 22.04 and 24.04&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;C++: instructions for building the samples directly with &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;cmake&lt;/span&gt;&lt;/code&gt; on Windows, macOS and Linux&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="docs"&gt;
+&lt;h2&gt;Docs&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;The wikis have new topics for &lt;a class="reference external" href="https://wiki.avblocks.com/avblocks-for-cpp/vp9-video/"&gt;VP9 video&lt;/a&gt;, &lt;a class="reference external" href="https://wiki.avblocks.com/avblocks-for-cpp/opus-audio/"&gt;Opus audio&lt;/a&gt; and the &lt;a class="reference external" href="https://wiki.avblocks.com/avblocks-for-cpp/webm-container/"&gt;WebM container&lt;/a&gt;. The same topics for .NET: &lt;a class="reference external" href="https://wiki-net.avblocks.com/avblocks-for-net/vp9-video/"&gt;VP9&lt;/a&gt;, &lt;a class="reference external" href="https://wiki-net.avblocks.com/avblocks-for-net/opus-audio/"&gt;Opus&lt;/a&gt;, &lt;a class="reference external" href="https://wiki-net.avblocks.com/avblocks-for-net/webm-container/"&gt;WebM&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="fixes"&gt;
+&lt;h2&gt;Fixes&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Vorbis: &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;MediaInfo&lt;/span&gt;&lt;/code&gt; reported &lt;code class="docutils literal notranslate"&gt;&lt;span class="pre"&gt;bitsPerSample&lt;/span&gt; &lt;span class="pre"&gt;=&lt;/span&gt; &lt;span class="pre"&gt;0&lt;/span&gt;&lt;/code&gt; for Vorbis streams in a WebM container&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="get-it"&gt;
+&lt;h2&gt;Get it&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://github.com/avblocks/avblocks-core"&gt;AVBlocks Core&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/avblocks/avblocks-net-core"&gt;AVBlocks .NET Core&lt;/a&gt; 3.3 demo releases&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Samples: &lt;a class="reference external" href="https://github.com/avblocks/avblocks-cpp"&gt;C++&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/avblocks/avblocks-net"&gt;.NET&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See the &lt;a class="reference external" href="https://wiki.avblocks.com/release-notes/"&gt;release notes&lt;/a&gt; for the complete list of changes.&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</content>
+    <link href="https://blog.avblocks.com/avblocks-3-3-whats-new/"/>
+    <summary>AVBlocks 3.3 adds VP9 video and Opus audio, brings both into the WebM container, and adds support for .NET 10.</summary>
+    <category term="news" label="news"/>
+    <published>2026-01-21T00:00:00-08:00</published>
+  </entry>
   <entry>
     <id>https://blog.avblocks.com/how-to-configure-output-socket-mp3-encoding-net/</id>
     <title>How to configure output socket for MP3 encoding in .NET</title>
