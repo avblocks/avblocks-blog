@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://blog.avblocks.com/</id>
   <title>AVBlocks™ Blog</title>
-  <updated>2026-10-18T21:26:41.664187+00:00</updated>
+  <updated>2026-10-18T21:46:17.667638+00:00</updated>
   <link href="https://blog.avblocks.com/"/>
   <link href="https://blog.avblocks.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.13">ABlog</generator>
@@ -18,21 +18,9 @@
 &lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/net/latest/class_primo_software_1_1_a_v_blocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for MP3 encoding using C#.&lt;/p&gt;
 &lt;section id="diagram"&gt;
 &lt;h2&gt;Diagram&lt;/h2&gt;
-&lt;pre  class="mermaid"&gt;
-        flowchart TB
-    is(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nFile: input.wav&amp;quot;)
-    os(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nType: MpegAudio\nSubtype: MpegAudioLayer3\nFile: output.mp3&amp;quot;)
-    tr(&amp;quot;&amp;lt;b&amp;gt;Transcoder Block&amp;lt;/b&amp;gt;\nopen\nrun\nclose&amp;quot;)
-    out[&amp;quot;output.mp3&amp;quot;]
-
-    in[&amp;quot;input.wav&amp;quot;]
-    out[&amp;quot;output.mp3&amp;quot;]
-
-    is --&amp;gt; |&amp;quot;add input&amp;quot;| tr 
-    os --&amp;gt; |&amp;quot;add output&amp;quot;| tr
-    
-    in  --&amp;gt; |&amp;quot;read&amp;quot;| tr --&amp;gt; |&amp;quot;write&amp;quot;| out
-    &lt;/pre&gt;&lt;/section&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-light" src="https://blog.avblocks.com/_images/mp3-output-socket.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-dark" src="https://blog.avblocks.com/_images/mp3-output-socket-dark.svg" style="width: 100%;" /&gt;
+&lt;/section&gt;
 &lt;section id="code"&gt;
 &lt;h2&gt;Code&lt;/h2&gt;
 &lt;p&gt;This is the code for the output socket:&lt;/p&gt;
@@ -93,20 +81,9 @@
 &lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++.&lt;/p&gt;
 &lt;section id="diagram"&gt;
 &lt;h2&gt;Diagram&lt;/h2&gt;
-&lt;pre  class="mermaid"&gt;
-        flowchart TB
-    is(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nFile: input.wav&amp;quot;)
-    os(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nType: AAC\nSubtype: AAC_ADTS\nFile: output.aac&amp;quot;)
-    tr(&amp;quot;&amp;lt;b&amp;gt;Transcoder Block&amp;lt;/b&amp;gt;\nopen\nrun\nclose&amp;quot;)
-
-    in[&amp;quot;input.wav&amp;quot;]
-    out[&amp;quot;output.aac&amp;quot;]
-
-    is --&amp;gt; |&amp;quot;add input&amp;quot;| tr 
-    os --&amp;gt; |&amp;quot;add output&amp;quot;| tr
-    
-    in  --&amp;gt; |&amp;quot;read&amp;quot;| tr --&amp;gt; |&amp;quot;write&amp;quot;| out
-    &lt;/pre&gt;&lt;/section&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the AAC / ADTS stream." class="only-light" src="https://blog.avblocks.com/_images/aac-adts-output-socket.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the AAC / ADTS stream." class="only-dark" src="https://blog.avblocks.com/_images/aac-adts-output-socket-dark.svg" style="width: 100%;" /&gt;
+&lt;/section&gt;
 &lt;section id="code"&gt;
 &lt;h2&gt;Code&lt;/h2&gt;
 &lt;p&gt;This is the code for the output socket:&lt;/p&gt;
@@ -177,20 +154,9 @@
 &lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for MP3 encoding using C++.&lt;/p&gt;
 &lt;section id="diagram"&gt;
 &lt;h2&gt;Diagram&lt;/h2&gt;
-&lt;pre  class="mermaid"&gt;
-        flowchart TB
-    is(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nFile: input.wav&amp;quot;)
-    os(&amp;quot;&amp;lt;b&amp;gt;MediaSocket&amp;lt;/b&amp;gt;\nType: MPEG_Audio\nSubtype: MPEG_Audio_Layer3\nFile: output.mp3&amp;quot;)
-    tr(&amp;quot;&amp;lt;b&amp;gt;Transcoder Block&amp;lt;/b&amp;gt;\nopen\nrun\nclose&amp;quot;)
-
-    in[&amp;quot;input.wav&amp;quot;]
-    out[&amp;quot;output.mp3&amp;quot;]
-
-    is --&amp;gt; |&amp;quot;add input&amp;quot;| tr 
-    os --&amp;gt; |&amp;quot;add output&amp;quot;| tr
-    
-    in  --&amp;gt; |&amp;quot;read&amp;quot;| tr --&amp;gt; |&amp;quot;write&amp;quot;| out
-    &lt;/pre&gt;&lt;/section&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-light" src="https://blog.avblocks.com/_images/mp3-output-socket-cpp.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-dark" src="https://blog.avblocks.com/_images/mp3-output-socket-cpp-dark.svg" style="width: 100%;" /&gt;
+&lt;/section&gt;
 &lt;section id="code"&gt;
 &lt;h2&gt;Code&lt;/h2&gt;
 &lt;p&gt;This is the code for the output socket:&lt;/p&gt;

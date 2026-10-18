@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 580" role="img" aria-labelledby="t d" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14">
+  <title id="t">Transcoder with input and output MediaSockets for MP3 encoding</title>
+  <desc id="d">Each MediaSocket has a Pins socket that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream. The input MediaSocket plugs into the Inputs socket of the Transcoder and the output MediaSocket plugs into its Outputs socket. The Transcoder then opens, runs and closes, reading input.wav and writing output.mp3.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8c98a4"/>
+    </marker>
+  </defs>
+
+  <!-- ===== row 1: MediaPins (20..160) ===== -->
+  <rect x="20" y="20" width="240" height="140" rx="10" fill="#14181d" stroke="#5b9bd5" stroke-width="2"/>
+  <text x="140" y="48" text-anchor="middle" font-weight="700" fill="#e8ecf0">MediaPin</text>
+  <g fill="#e8ecf0" font-size="13" text-anchor="middle">
+    <text x="140" y="78">StreamInfo = AudioStreamInfo</text>
+    <text x="140" y="98">(PCM audio)</text>
+  </g>
+
+  <rect x="660" y="20" width="240" height="140" rx="10" fill="#14181d" stroke="#4caf50" stroke-width="2"/>
+  <text x="780" y="48" text-anchor="middle" font-weight="700" fill="#e8ecf0">MediaPin</text>
+  <g fill="#e8ecf0" font-size="13" text-anchor="middle">
+    <text x="780" y="78">StreamInfo = AudioStreamInfo</text>
+    <text x="780" y="98">Bitrate = 128000 (default)</text>
+    <text x="780" y="118">SampleRate, Channels (optional)</text>
+    <text x="780" y="138">Params (optional)</text>
+  </g>
+
+  <!-- ===== row 2: sockets and transcoder (220..410) ===== -->
+
+  <!-- input socket -->
+  <rect x="20" y="220" width="240" height="190" rx="10" fill="#1b2a3b" stroke="#5b9bd5" stroke-width="2"/>
+  <text x="140" y="252" text-anchor="middle" fill="#e8ecf0" font-size="13">Pins</text>
+  <text x="140" y="284" text-anchor="middle" font-weight="700" fill="#e8ecf0">MediaSocket</text>
+  <text x="140" y="304" text-anchor="middle" fill="#9fb3c8" font-size="12">input</text>
+  <text x="140" y="334" text-anchor="middle" fill="#e8ecf0" font-size="13">File = input.wav</text>
+
+  <!-- transcoder -->
+  <rect x="340" y="220" width="240" height="190" rx="10" fill="#3a3118" stroke="#e0a526" stroke-width="2"/>
+  <text x="460" y="284" text-anchor="middle" font-weight="700" fill="#e8ecf0">Transcoder</text>
+  <g fill="#e8ecf0" font-size="13">
+    <text x="366" y="335" text-anchor="start">Inputs</text>
+    <text x="554" y="335" text-anchor="end">Outputs</text>
+  </g>
+
+  <!-- output socket -->
+  <rect x="660" y="220" width="240" height="190" rx="10" fill="#1b2f20" stroke="#4caf50" stroke-width="2"/>
+  <text x="780" y="252" text-anchor="middle" fill="#e8ecf0" font-size="13">Pins</text>
+  <text x="780" y="284" text-anchor="middle" font-weight="700" fill="#e8ecf0">MediaSocket</text>
+  <text x="780" y="304" text-anchor="middle" fill="#a5c9ab" font-size="12">output</text>
+  <g fill="#e8ecf0" font-size="12" text-anchor="middle">
+    <text x="780" y="330">StreamType = MPEG_Audio</text>
+    <text x="780" y="348">StreamSubType = MPEG_Audio_Layer3</text>
+    <text x="780" y="366">File = output.mp3</text>
+  </g>
+
+  <!-- sockets on the boxes: Pins (top of each MediaSocket), Inputs / Outputs (Transcoder) -->
+  <g fill="#14181d" stroke-width="2">
+    <rect x="124" y="210" width="32" height="20" rx="5" stroke="#5b9bd5"/>
+    <rect x="764" y="210" width="32" height="20" rx="5" stroke="#4caf50"/>
+    <rect x="330" y="319" width="20" height="32" rx="5" stroke="#e0a526"/>
+    <rect x="570" y="319" width="20" height="32" rx="5" stroke="#e0a526"/>
+  </g>
+  <g>
+    <circle cx="140" cy="220" r="4" fill="#5b9bd5"/>
+    <circle cx="780" cy="220" r="4" fill="#4caf50"/>
+    <circle cx="340" cy="335" r="4" fill="#e0a526"/>
+    <circle cx="580" cy="335" r="4" fill="#e0a526"/>
+  </g>
+
+  <!-- plugs: MediaPin to MediaSocket, MediaSocket to Transcoder -->
+  <g stroke="#8c98a4" stroke-width="2.5" fill="none">
+    <line x1="140" y1="160" x2="140" y2="210"/>
+    <line x1="780" y1="160" x2="780" y2="210"/>
+    <line x1="260" y1="335" x2="330" y2="335"/>
+    <line x1="590" y1="335" x2="660" y2="335"/>
+  </g>
+  <g fill="#8c98a4">
+    <circle cx="140" cy="160" r="5"/>
+    <circle cx="780" cy="160" r="5"/>
+    <circle cx="260" cy="335" r="5"/>
+    <circle cx="660" cy="335" r="5"/>
+  </g>
+  <g fill="#9aa5b1" font-size="12">
+    <text x="150" y="190" text-anchor="start">add pin</text>
+    <text x="790" y="190" text-anchor="start">add pin</text>
+    <text x="295" y="321" text-anchor="middle">add input</text>
+    <text x="625" y="321" text-anchor="middle">add output</text>
+  </g>
+
+  <!-- top to bottom -->
+  <line x1="460" y1="410" x2="460" y2="478" stroke="#8c98a4" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ===== row 3: files and Open / Run / Close (480..560) ===== -->
+  <g stroke="#8c98a4" stroke-width="1.5" fill="#232a31">
+    <rect x="20" y="480" width="240" height="80" rx="10"/>
+    <rect x="660" y="480" width="240" height="80" rx="10"/>
+  </g>
+  <rect x="340" y="480" width="240" height="80" rx="10" fill="#3a3118" stroke="#e0a526" stroke-width="2"/>
+  <g fill="#e8ecf0" text-anchor="middle" font-weight="600">
+    <text x="140" y="526">input.wav</text>
+    <text x="780" y="526">output.mp3</text>
+    <text x="460" y="526">Open · Run · Close</text>
+  </g>
+  <g stroke="#8c98a4" stroke-width="2" fill="none" marker-end="url(#ar)">
+    <line x1="260" y1="520" x2="338" y2="520"/>
+    <line x1="580" y1="520" x2="658" y2="520"/>
+  </g>
+  <g fill="#9aa5b1" font-size="12" text-anchor="middle">
+    <text x="299" y="510">read</text>
+    <text x="619" y="510">write</text>
+  </g>
+</svg>
