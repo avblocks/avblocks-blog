@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://blog.avblocks.com/</id>
   <title>AVBlocks™ Blog</title>
-  <updated>2026-10-18T21:46:17.667638+00:00</updated>
+  <updated>2026-10-18T21:47:43.141730+00:00</updated>
   <link href="https://blog.avblocks.com/"/>
   <link href="https://blog.avblocks.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.13">ABlog</generator>
@@ -18,8 +18,8 @@
 &lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/net/latest/class_primo_software_1_1_a_v_blocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for MP3 encoding using C#.&lt;/p&gt;
 &lt;section id="diagram"&gt;
 &lt;h2&gt;Diagram&lt;/h2&gt;
-&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-light" src="https://blog.avblocks.com/_images/mp3-output-socket.svg" style="width: 100%;" /&gt;
-&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-dark" src="https://blog.avblocks.com/_images/mp3-output-socket-dark.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. The input MediaSocket only has a file. The output MediaSocket has a Pins connector that a MediaPin plugs into; the MediaPin holds an AudioStreamInfo with the StreamType and StreamSubType of the MP3 stream." class="only-light" src="https://blog.avblocks.com/_images/mp3-output-socket.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. The input MediaSocket only has a file. The output MediaSocket has a Pins connector that a MediaPin plugs into; the MediaPin holds an AudioStreamInfo with the StreamType and StreamSubType of the MP3 stream." class="only-dark" src="https://blog.avblocks.com/_images/mp3-output-socket-dark.svg" style="width: 100%;" /&gt;
 &lt;/section&gt;
 &lt;section id="code"&gt;
 &lt;h2&gt;Code&lt;/h2&gt;
@@ -81,8 +81,8 @@
 &lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for Advanced Audio Coding (AAC) / Audio Data Transport Stream (ADTS) encoding using C++.&lt;/p&gt;
 &lt;section id="diagram"&gt;
 &lt;h2&gt;Diagram&lt;/h2&gt;
-&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the AAC / ADTS stream." class="only-light" src="https://blog.avblocks.com/_images/aac-adts-output-socket.svg" style="width: 100%;" /&gt;
-&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the AAC / ADTS stream." class="only-dark" src="https://blog.avblocks.com/_images/aac-adts-output-socket-dark.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. The input MediaSocket only has a file. The output MediaSocket has a Pins connector that a MediaPin plugs into; the MediaPin holds an AudioStreamInfo with the StreamType and StreamSubType of the AAC / ADTS stream." class="only-light" src="https://blog.avblocks.com/_images/aac-adts-output-socket.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. The input MediaSocket only has a file. The output MediaSocket has a Pins connector that a MediaPin plugs into; the MediaPin holds an AudioStreamInfo with the StreamType and StreamSubType of the AAC / ADTS stream." class="only-dark" src="https://blog.avblocks.com/_images/aac-adts-output-socket-dark.svg" style="width: 100%;" /&gt;
 &lt;/section&gt;
 &lt;section id="code"&gt;
 &lt;h2&gt;Code&lt;/h2&gt;
@@ -91,13 +91,10 @@
 &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// create stream info to describe the output audio stream&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createAudioStreamInfo&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio_Layer3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;AAC&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;AAC_ADTS&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// The default bitrate is 128000. You can set it to 192000, 256000, etc.&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setBitrate(192000);&lt;/span&gt;
-
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// Optionally set the sampling rate and the number of the channels, e.g. 44.1 Khz, Mono &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// You can change the sampling rate and the number of the channels&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setSampleRate(44100);&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// asi-&amp;gt;setChannels(1);&lt;/span&gt;
 
@@ -105,21 +102,18 @@
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createMediaPin&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamInfo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;asi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
 
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// the pin allows you to specify additional parameters for the encoder &lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// for example, change the stereo mode, e.g. Joint Stereo&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// pin-&amp;gt;params()-&amp;gt;addInt(Param::Encoder::Audio::MPEG1::StereoMode, StereoMode::Joint);&lt;/span&gt;
-
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// finally create a socket for the output container format which is MP3 in this case&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// finally create a socket for the output container format &lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// which in this case is AAC packaged as Audio Data Transport Stream (ADTS)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;make_ref&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;createMediaSocket&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MPEG_Audio_Layer3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;AAC&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setStreamSubType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StreamSubType&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;AAC_ADTS&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;pins&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
 
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// output to a file&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primo&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;ustring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;outputFile&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;output_file&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
+&lt;span class="w"&gt;    &lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -154,8 +148,8 @@
 &lt;p&gt;Here is a quick snippet for configuring the output socket of a &lt;a class="reference external" href="https://doc.avblocks.com/cpp/latest/classprimo_1_1avblocks_1_1_transcoder.html"&gt;Transcoder&lt;/a&gt; for MP3 encoding using C++.&lt;/p&gt;
 &lt;section id="diagram"&gt;
 &lt;h2&gt;Diagram&lt;/h2&gt;
-&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-light" src="https://blog.avblocks.com/_images/mp3-output-socket-cpp.svg" style="width: 100%;" /&gt;
-&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. Each socket has a Pins connector that a MediaPin plugs into. The output MediaPin holds an AudioStreamInfo describing the MP3 stream." class="only-dark" src="https://blog.avblocks.com/_images/mp3-output-socket-cpp-dark.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. The input MediaSocket only has a file. The output MediaSocket has a Pins connector that a MediaPin plugs into; the MediaPin holds an AudioStreamInfo with the StreamType and StreamSubType of the MP3 stream." class="only-light" src="https://blog.avblocks.com/_images/mp3-output-socket-cpp.svg" style="width: 100%;" /&gt;
+&lt;img alt="The Transcoder with an input MediaSocket and an output MediaSocket. The input MediaSocket only has a file. The output MediaSocket has a Pins connector that a MediaPin plugs into; the MediaPin holds an AudioStreamInfo with the StreamType and StreamSubType of the MP3 stream." class="only-dark" src="https://blog.avblocks.com/_images/mp3-output-socket-cpp-dark.svg" style="width: 100%;" /&gt;
 &lt;/section&gt;
 &lt;section id="code"&gt;
 &lt;h2&gt;Code&lt;/h2&gt;
